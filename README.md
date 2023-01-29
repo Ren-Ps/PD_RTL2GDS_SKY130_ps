@@ -75,3 +75,34 @@ It is an open-source VLSI flow created using open source tools. Basically it is 
   ### IC Terminologies
   In the complete flow to this RTL2GDS physical designing there are lot of terminologies one comes across. Some of these terms are described below.
   * Package - ICs are basically presents as packages. These packages are materials which contains the semiconductor device. These packages protect the device from damage. these are of various kind. An example of QFN-48 (Quad Falt No-Leads) with 48 pins is taken here.
+  
+![Package](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th1.png)
+
+* Chip - It sits in the centre of the package. The chip is connected to the package pins using **wire bond**. Inside the chip we have various components such as pad, core, interconnects, etc.
+  * Pads - These are the itermediate structure through which the internal signals from the core of IC is connected to the external pins of the chip. These pads are organised as Pad Frame. There are different kind of pads for input, output, power supply and ground.
+  * Core - It is the place where all the logic units (gates, muxs, etc) are presnet inside the chip. These are able to execute the set of instructions given to the chip and produce an output.
+  * Die - It is the block which consists of semiconducting material and it can be used to build certain functional cuircuit which can be further sent for fabrication. It is the entire size of the chip.
+  
+ ![Die](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th2.png)
+ 
+  ### Introduction to RISC-V
+  **[RISC-V](https://riscv.org/technical/specifications/)** is an open instruction set architechture rooted on **reduced instruction set computer principles**. It is an open source ISA used for processor design. 
+  #### RISC-V Characterstics
+  * It uses one clock cycle per instruction.
+  * It follows the th RISC Princples. 
+  * It has both 32-bit and 64-bit varients. It also support floating point instruction.
+  * It avoids micro-architechture or technology dependent features.
+  * It accelerates the time for design to reach the market as it uses open-source IP.
+  
+  ### Software to Hardware 
+  The flow shows how the high level language (at software end) gets converted to machine language (at hardware end) and then gets executed on the package.
+  #### What happens when we run a program?
+  Suppose a C program needs to run on a hardware. So we nned to pass this C program to the hardware. So firstly the C program is compiled into assembly language (RISC-V assembly language program). Now this assmebly language is converted into the machine language program (basically 1's and 0's). Now this 1's and 0's are understanable by the hardware.
+
+#### How does an application run on a computer?
+1. The application software enters the system software (major component of it are OS, Compiler and Assembler). 
+ * The OS handles I/O operations, memories and many low level functions.
+ * then the program passes to Compiler which changes the program to Assembly language (compiled into instructions depends upon the hardware).
+ * Now the instruction set goes to Assembler. Assembler converts the instruction set to machine language (binary numbers). 
+2. The system software converts the apllication software into binary language. 
+3. Now these binary numbers enter our chip layout and according the function is performed.
