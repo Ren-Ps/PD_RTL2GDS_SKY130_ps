@@ -106,3 +106,35 @@ It is an open-source VLSI flow created using open source tools. Basically it is 
  * Now the instruction set goes to Assembler. Assembler converts the instruction set to machine language (binary numbers). 
 2. The system software converts the apllication software into binary language. 
 3. Now these binary numbers enter our chip layout and according the function is performed.
+
+![SoftHard](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th3.png)
+
+## SoC design and OpenLane
+### Introduction to Digital design
+For designing Digital ASIC ICs we require following components and some of it's opensource resources are also mentioned. 
+ * RTL models (old IP's) {github.com, librecores.org, etc}
+ * EDA tool {OpenROAD, OpenLANE, etc}
+ * PDK Data {SKYWater 130} 
+
+In the workshop every component is used from sources which are open soucre. The following image gives an idea about each component as an open source resource. 
+![ASIC](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th4.png)
+
+#### What is a PDK? 
+PDK stands for Process Design Kit, it is provided by foundaries and it consists of library or set of building blocks which are used to build ICs. Each component in the library is seperate building bolck and ae made following certain foundary rules.
+
+PDKs acts as an inteface between the FABs and the designeers. PDKs have collection of files whcih are used to model a fabrication process for the EDA tools used to design an IC. PDK consists of tecnology node information, Process Design Rules (to verify DRC, LVC, PEX, etc), device model, I/O libraries, Standard cell libraries, macros files, lef files, etc.
+
+**Google along with SKYWater made the laters PDK opensource (130 nm node).** The PDK only need data information for successful implementation.
+
+#### Environment Setup
+The OpenLANE flow requires various open source tools as well as their supporting tools to be installed for the complete Physical design flow. Installing this tools one by one is tedious as well as one can get lost in the steps. Installation can be done easily using some set of scripts present in following repositories [VSDFlow](https://github.com/kunalg123/vsdflow) (for installing Yosys, OpenSTA, Magic, OpenTimer, netgent, etc)  and [OpenLANE Build Scripts](https://github.com/nickson-jose/openlane_build_script).
+
+### Simplified RTL to GDSII Flow
+
+![RTLGDS](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th5.png)
+
+The flow starts from the HDL code i.e.RTL model and ends with GDSII file. The major implimenation steps are:
+   * Synthesis - During synthesis the HDL design is translated into circuits,  which are made up of components present in the standard cell library. The resultant circuit is described in HDL and its referred as gate level netlist which is functional equivalent of RTL code. The library building block of cell have regular layouts, cell layout is enclosed by fixed height (rectanglar in shape) whereas the width is variable an is discrete i.e., integer multiple of unit call side width.
+
+
+
