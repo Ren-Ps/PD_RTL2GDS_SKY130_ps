@@ -8,7 +8,6 @@ This repo contents learning info and steps followed during the workshop of Advan
   * [SKYWater130 PDK](#skywater130-pdk)
   * [OpenLANE](#openlane)
   * [Tools Used](#tools-used)
-  * [AIM](#aim)
   * [Day 1 - Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1---inception-of-open-source-eda-openlane-and-sky130-pdk)
     - [How to talk to computers](#how-to-talk-to-computers)
       - [IC Terminologies](#ic-terminologies)
