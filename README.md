@@ -251,7 +251,7 @@ docker
 ```
 package require openlane 0.9
 ```
-![image](https://user-images.githubusercontent.com/69652104/214776839-62677619-ff6f-40f0-8ce1-d13500bb9491.png)
+![image](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/Screenshot%20from%202023-01-28%2022-00-43.png)
 
 * Now we are good to go to execute our commands.
 
