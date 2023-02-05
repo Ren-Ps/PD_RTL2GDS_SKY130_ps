@@ -148,5 +148,71 @@ The OpenLANE flow requires various open source tools as well as their supporting
 The flow starts from the HDL code i.e.RTL model and ends with GDSII file. The major implimenation steps are:
    * Synthesis - During synthesis the HDL design is translated into circuits,  which are made up of components present in the standard cell library. The resultant circuit is described in HDL and its referred as gate level netlist which is functional equivalent of RTL code. The library building block of cell have regular layouts, cell layout is enclosed by fixed height (rectanglar in shape) whereas the width is variable an is discrete i.e., integer multiple of unit call side width.
 
+![SYNTHE](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th6.png)
+
+* Floor Planning - In Floor planning the chip area is being planned which in turn creates a robust Power distribution to power the circuits. The die is partitioned into different building blocks or components, also the I?O pads are distributed. During macro floor planning macro dimensions, it's pin locations and row definations i.e, rows and routing plan.
+
+![FLRPLN](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th7.png)
+
+* Power Planning - The power network is constructed typically for a chip was it has to power multiple VDD and ground pins. The power pin are connected to all component through rings and multiple horizontal and vertical strips. Sach parallel structure is meant to reduce the resistance.
+
+![PWRPLN] (https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th8.png)
+
+* Placements - For macros we place the GATE level netlist cell on vertical rows. To reduce the interconnect delay conical cells are placed very close to each other and this is also done to enable successful routing afterwards. Placement is done in two ways Global placement and detailed placement. Global placement provide optimal result and these may or may not be legal where as the detail placement is always legal.
+
+![PLCMNT] (https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th9.png)
+
+ * Clock Tree Synthesis (CTS) - Before signal routing clock routing is done so that the clock distribution is done to every sequential block. Clock distribution network delivers the clock to each of the sequential block. It is done so that there is minimum skew and latency. It usually follows a shape i.e., H-tree, X-tree, etc.
+
+![CTS] (https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th10.png)
+
+* Routing - The signal routing is done using metal layers. It is essential to find valid pattern of horizontal and verticle wires to implement the nets that connects the cells together. Router uses the available metal layers as defined by the PDK. For each metal layer the PDK defines the thickness, width, pitch and vias. Vias are used to connect two metal wires. SkyWater 130nm has 6 metal layers.
+
+![ROUTING] (https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th11.png)
+
+* Verification and Sign-offs - After PnR and CTS we perform verifications, to check whether our layout is valid or not. These verifications consists of Physical verification such as DRC and LVS. Design Rules Checking (DRC) ensures that the layout follows the design rules and Layout Vs Schematic ensures that the final layout is as per the synthesised gate level netlist or not. Finally Static Timing Analysis is done (STA) to make sure that all the timing constraints are met by the circuit.
+   
+### About OpenLANE
+[OpenLANE](https://openlane.readthedocs.io/en/latest/) is a flow which uses various open source tools for the RTL to GDSII flow. It has the striVe family of open everything SoCs (Open PDK, Open EDA, Open RTL). The various tools it uses are Yosys, OpenROAD, Magic, Netgen, SPEF_Extraction, etc.  
+
+* It has two mode of Operations: Autonomus and Interactive
+* It is tuned for SKYWater 130nm open PDK.
+* OpenLANE ASIC flow is shown below. 
+![OPENLANE](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th12.png)
+
+* The flow starts with RTL Synthesis. RTL is fed to Yosys with the design constraints. Yosys translates the RTL into a logic circuit using generic components. 
+* the circuit can be optimized and then mapped with standard cell library usin the tool abc. There are [abc scrript](http://people.eecs.berkeley.edu/~alanmi/abc/) to guide the optimization. OpenLANE has several abc scripts which has different synthesis statergies (least area, least power consumption, etc). The synthesis exploration utility is for statergy exploration and report generation.
+* OpenLANE has design exploration utility which can be used to sweep the design configurations (16 in total) and it genrates reports which has different design matrix and also shows the number of violations in layout. It is used for regression testing and to find the best configuration of our design. 
+* OpenSTA performs the Static timing analysis on the netlist which is generated during synthesis.
+* Now after synthesis, the testing part starts (DFT) i.e., scan insertion, Automatic Test Pattern Generation (ATPG), Test Pattern Compaction, Fault Coverage and Fault Simulation. This step is optional.
+* Nest step is Physical implementation. This part is done with the help of OpenROAD application. It performs PnR which consists of FP+PP, Placement (Global and Detailed), Optimization, CTS and routing (Global and Detailed). TritonRoute is used for detailed routing.
+* Logic equivalence checking (LEC) is performed as the circuit changes due to optimization process as compare to the one generated during synthesis. This is done using Yosys tool to make sure the functionality is equivalent. 
+* During insertion there is a special step that is fake antenna insertion. It is required to address the antenna rule violations. The concept of fake antenna is something like we have already considered the antenna so that on later stage we do not have any antenna violations. Hence we add fake antenna diode next to every cell input after placement. Then antenna checker is run from the Magic tool against the layout. 
+* Fake antenna diode cell is created and added to standard cell library. 
+
+/*hence a long wire is simulated it acts as an antenna but as a conductor it collects charges which can damage the transistor gates connected to the wire during fab. So the length of wire connected to transistor gate must be limited. This is done by the help of Router.*/
+
+* The sign off include STA, DRC and LVS. It also involves interconnect RC extraxtion from the routed layout followed by STA using OpenSTA.
+* Physical signoffs include DRC and LVS. DRC and LVS is performed using Magic tool. Circuit extraction is done NetGen.
+
+## Getting familier to open-source EDA tools
+### Contents of the OpenLANE Directory
+
+The following content is specific to the workshop. There are lot of other files present in the directory too.
+1. **OpenLane folder** - It contains all the tools and the file that need to be invoked during the flow.
+2. **Designs** - This folder consists of all the designs requried during the flow (picorv32a is the design used in this workshop)
+3. PDKs - This folder contains all the pdk related files as well as information. (open pdk, Sky130, Skywater pdk).
+* open pdk consists of the scripts.
+* sky130A pdk consists of the libs.ref (has files specific to process such as timing, lef-both tech and cell) and libs.tech (has all the files specific to the tool) files.
+* skywater pdk consists of skywater 130 nm pdks.
+
+**NOTE:** - Here **sky130_fd_sc_hd libs.tech** is being used.
+4. config files - It bypasses any configuration that has already been done i.e., many of the switches use default value that is already present in the OpenLane flow.
+**The precedence order of Openlane settings are:**
+* sky130_xyz_config.tcl
+* config.tcl
+* Default value (already set in OpenLane)
+
+### LAB Day 1
 
 
