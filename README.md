@@ -36,6 +36,19 @@ This repo contents learning info and steps followed during the workshop of Advan
        - [Placement and routing](#placement-and-routing)
        - [LAB Day 2](#lab-day-2)
        - [TASK 2: Calculating area](#task-2-calculating-area)
+* [Day 3 - Design library cell using Magic Layout and ngspice characterization](#day-3---design-library-cell-using-magic-layout-and-ngspice-characterization)
+   - [LAB Day 3](#lab-day-3)
+   - [Labs for CMOS inverter ngspice simulations](#labs-for-cmos-inverter-ngspice-simulations)
+       - [Creating SPICE deck](#creating-spice-deck)
+       - [Analysing the inverter](#analysing-the-inverter)
+       - [LAB SETUP](#lab-setup)
+   - [Inception of Layout Â CMOS fabrication process (16 mask process)](#inception-of-layout-Â-CMOS-fabrication-process-(16-mask-process))
+   - [LAB DAY 3 (PART 2)](#labb-day-3(part-2))
+   - [LAB DAY 3 (PART 3)](#labb-day-3(part-3))
+       - [TASK 3: calculating delays and fall time](#task-3-calculating-delays-and-fall-time)
+* [DAY 4 Pre-layout timing analysis and importance of good clock tree](#day-4-pre---layout-timing-analysis-and-importance-of-good-clock-tree)
+   - [Pre-layout timing analysis and importance of good clock tree](#pre-layout-timing-analysis-and-importance-of-good-clock-tree)
+* [DAY 5 - Final step for RTL2GDS]
        
        
 # About RTL to GDSII Flow
