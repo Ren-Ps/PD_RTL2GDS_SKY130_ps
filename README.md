@@ -147,7 +147,8 @@ The OpenLANE flow requires various open source tools as well as their supporting
 
 ### Simplified RTL to GDSII Flow
 
-![RTLGDS](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th5.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th5.png">
 
 The flow starts from the HDL code i.e.RTL model and ends with GDSII file. The major implimenation steps are:
    * Synthesis - During synthesis the HDL design is translated into circuits,  which are made up of components present in the standard cell library. The resultant circuit is described in HDL and its referred as gate level netlist which is functional equivalent of RTL code. The library building block of cell have regular layouts, cell layout is enclosed by fixed height (rectanglar in shape) whereas the width is variable an is discrete i.e., integer multiple of unit call side width.
