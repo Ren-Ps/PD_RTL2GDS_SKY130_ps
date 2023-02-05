@@ -128,7 +128,8 @@ For designing Digital ASIC ICs we require following components and some of it's 
  * EDA tool {OpenROAD, OpenLANE, etc}
  * PDK Data {SKYWater 130} 
 
-In the workshop every component is used from sources which are open soucre. The following image gives an idea about each component as an open source resource. 
+In the workshop every component is used from sources which are open soucre. The following image gives an idea about each component as an open source resource.
+<p align="center">
 ![ASIC](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th4.png)
 
 #### What is a PDK? 
