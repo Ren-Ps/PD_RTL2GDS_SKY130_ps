@@ -88,14 +88,16 @@ It is an open-source VLSI flow created using open source tools. Basically it is 
   In the complete flow to this RTL2GDS physical designing there are lot of terminologies one comes across. Some of these terms are described below.
   * Package - ICs are basically presents as packages. These packages are materials which contains the semiconductor device. These packages protect the device from damage. these are of various kind. An example of QFN-48 (Quad Falt No-Leads) with 48 pins is taken here.
   
-![Package](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th1.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th1.png">
 
 * Chip - It sits in the centre of the package. The chip is connected to the package pins using **wire bond**. Inside the chip we have various components such as pad, core, interconnects, etc.
   * Pads - These are the itermediate structure through which the internal signals from the core of IC is connected to the external pins of the chip. These pads are organised as Pad Frame. There are different kind of pads for input, output, power supply and ground.
   * Core - It is the place where all the logic units (gates, muxs, etc) are presnet inside the chip. These are able to execute the set of instructions given to the chip and produce an output.
   * Die - It is the block which consists of semiconducting material and it can be used to build certain functional cuircuit which can be further sent for fabrication. It is the entire size of the chip.
   
- ![Die](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th2.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th2.png">
  
   ### Introduction to RISC-V
   **[RISC-V](https://riscv.org/technical/specifications/)** is an open instruction set architechture rooted on **reduced instruction set computer principles**. It is an open source ISA used for processor design. 
@@ -183,9 +185,10 @@ The flow starts from the HDL code i.e.RTL model and ends with GDSII file. The ma
 ### About OpenLANE
 [OpenLANE](https://openlane.readthedocs.io/en/latest/) is a flow which uses various open source tools for the RTL to GDSII flow. It has the striVe family of open everything SoCs (Open PDK, Open EDA, Open RTL). The various tools it uses are Yosys, OpenROAD, Magic, Netgen, SPEF_Extraction, etc.  
 
-* It has two mode of Operations: Autonomus and Interactive
+* Two Modes of Operations: Autonomus and Interactive
 * It is tuned for SKYWater 130nm open PDK.
-* OpenLANE ASIC flow is shown below. 
+* OpenLANE ASIC flow is shown as,
+
 ![OPENLANE](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/Theory/th12.png)
 
 * The flow starts with RTL Synthesis. RTL is fed to Yosys with the design constraints. Yosys translates the RTL into a logic circuit using generic components. 
@@ -224,3 +227,101 @@ The following content is specific to the workshop. There are lot of other files 
 ### LAB Day 1
 
 
+**Step 1:** Starting OpenLane
+* Go to openlane folder.
+
+```
+cd work/tools/openlane_working_dir/openlane
+```
+
+* Then run the **docker** command.
+
+```
+docker
+```
+
+* Now run the **flow.tcl** file with interactive mode.
+
+```
+./flow.tcl -interactive
+```
+
+* Now import packages
+
+```
+package require openlane 0.9
+```
+![image](https://user-images.githubusercontent.com/69652104/214776839-62677619-ff6f-40f0-8ce1-d13500bb9491.png)
+
+* Now we are good to go to execute our commands.
+
+**NOTE** - The above commands are to be run everytime we use OpenLANE for RTL2GDSII flow.
+
+**Step 2:** Design Preperation
+* Knowing the contents of our design (picorv32a) folder.
+
+1. src
+2. sky130A_sky130_fd_sc_ns_config.tcl
+3. sky130A_sky130_fd_sc_ls_config.tcl
+4. sky130A_sky130_fd_sc_hs_config.tcl
+5. sky130A_sky130_fd_sc_hdl_config.tcl
+6. sky130A_sky130_fd_sc_hd_config.tcl
+7. config.tcl
+
+Checking our config.tcl file values by running the below command in picorv32a folder (it has clock period of 5 unit) 
+
+```
+less config.tcl
+```
+
+![image](https://user-images.githubusercontent.com/69652104/214781041-9641cea7-25be-45f5-8faa-d1fcf7792781.png)
+
+* Creating file for our design i.e., setting up the design. It merges the cell LEF files and the technology LEF files generating merged.lef which is present in the temp folder.
+
+```
+prep -design picorv32a
+```
+
+![image](https://user-images.githubusercontent.com/69652104/214783771-fdd2623b-1b9c-4a92-acd2-633521396d50.png)
+
+This marks the creation of new folder inside picorv32a named as runs folder which consists of new folder whose name is the date on which the command is run. The following folder has results, reports, command logs, PDK Sources, etc files.
+
+![image](https://user-images.githubusercontent.com/69652104/214785655-161be74d-583d-4241-8c5f-581fecd4f96f.png)
+
+**Step 3:** Running Synthesis
+
+Yosys synthesis is run when the command for synthesis is entered. Along with it abc scripts are also run and OpenSTA is also run.
+
+```
+run_synthesis
+```
+
+After running systhesis logs, reports and results are created.
+
+The report folder have the following files: 
+1. 1-yosys_4.chk.rpt
+2. 1-yosys_4.stat.rpt
+3. 1-yosys_dff.stat
+4. 1-yosys_pre.stat
+5. 2-opensta.min_max.rpt
+6. 2-opensta.rpt
+7. 2-opensta.slew.rpt
+8. 2-opensta.timing.rpt
+9. 2-opensta_tns.rpt
+10. 2-opensta_wns.rpt
+
+Also a netlis file is created in the results --> symthesis folder named **picorv32a.synthesis.v**
+
+### TASK 1: Finding the d flip flop ratio
+
+Count of d flip flop (sky130_fd_sc_hd_dfxtp_2) = 1613 
+
+![image](https://user-images.githubusercontent.com/69652104/214802678-3f3dfeb9-047d-453c-a5cc-746851bd6b7e.png)
+
+Number of cells = 14876 
+
+![image](https://user-images.githubusercontent.com/69652104/214803214-dc216e45-52d6-49e2-84d6-80f61c3cd41b.png)
+
+**flop ratio = count of d flip flops / number of cells = 1613/14876 = 0.108429 (10.8429 %)**
+
+The synthesis statisttics report is as follows: 
