@@ -212,14 +212,16 @@ The flow starts from the HDL code i.e.RTL model and ends with GDSII file. The ma
 The following content is specific to the workshop. There are lot of other files present in the directory too.
 1. **OpenLane folder** - It contains all the tools and the file that need to be invoked during the flow.
 2. **Designs** - This folder consists of all the designs requried during the flow (picorv32a is the design used in this workshop)
-3. PDKs - This folder contains all the pdk related files as well as information. (open pdk, Sky130, Skywater pdk).
+3. **PDK's** - This folder contains all the pdk related files as well as information. (open pdk, Sky130, Skywater pdk).
 * open pdk consists of the scripts.
 * sky130A pdk consists of the libs.ref (has files specific to process such as timing, lef-both tech and cell) and libs.tech (has all the files specific to the tool) files.
 * skywater pdk consists of skywater 130 nm pdks.
 
 **NOTE:** - Here **sky130_fd_sc_hd libs.tech** is being used.
-4. config files - It bypasses any configuration that has already been done i.e., many of the switches use default value that is already present in the OpenLane flow.
-**The precedence order of Openlane settings are:**
+ 
+4. **config files** - It bypasses any configuration that has already been done i.e., many of the switches use default value that is already present in the OpenLane flow.
+
+ **The precedence order of Openlane settings are:**
 * sky130_xyz_config.tcl
 * config.tcl
 * Default value (already set in OpenLane)
