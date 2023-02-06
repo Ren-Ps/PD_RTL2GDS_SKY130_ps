@@ -324,15 +324,21 @@ The report folder have the following files:
 
 Also a netlis file is created in the results --> symthesis folder named **picorv32a.synthesis.v**
 
+ ![sysntheLoc](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB22.png)
+ 
+ In **picorv32a.synthesis.v** file using command ``` less picorv32a.synthesis.v ```
+ 
+ ![lesssys](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB23.png)
+ 
 ### TASK 1: Finding the d flip flop ratio
 
 Count of d flip flop (sky130_fd_sc_hd_dfxtp_2) = 1613 
 
-![image](https://user-images.githubusercontent.com/69652104/214802678-3f3dfeb9-047d-453c-a5cc-746851bd6b7e.png)
+![DFFs](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB20.png)
 
 Number of cells = 14876 
 
-![image](https://user-images.githubusercontent.com/69652104/214803214-dc216e45-52d6-49e2-84d6-80f61c3cd41b.png)
+![NosCell](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB21.png)
 
 **flop ratio = count of d flip flops / number of cells = 1613/14876 = 0.108429 (10.8429 %)**
 
