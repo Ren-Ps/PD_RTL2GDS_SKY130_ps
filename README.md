@@ -260,6 +260,8 @@ docker
 ./flow.tcl -interactive
 ```
 
+ ![dockr](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB7.png)
+ 
 * Now import packages
 
 ```
