@@ -276,13 +276,7 @@ package require openlane 0.9
 **Step 2:** Design Preperation
 * Knowing the contents of our design (picorv32a) folder.
 
-1. src
-2. sky130A_sky130_fd_sc_ns_config.tcl
-3. sky130A_sky130_fd_sc_ls_config.tcl
-4. sky130A_sky130_fd_sc_hs_config.tcl
-5. sky130A_sky130_fd_sc_hdl_config.tcl
-6. sky130A_sky130_fd_sc_hd_config.tcl
-7. config.tcl
+ ![pico](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB8.png)
 
 Checking our config.tcl file values by running the below command in picorv32a folder (it has clock period of 5 unit) 
 
@@ -290,7 +284,7 @@ Checking our config.tcl file values by running the below command in picorv32a fo
 less config.tcl
 ```
 
-![image](https://user-images.githubusercontent.com/69652104/214781041-9641cea7-25be-45f5-8faa-d1fcf7792781.png)
+![image](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB9.png)
 
 * Creating file for our design i.e., setting up the design. It merges the cell LEF files and the technology LEF files generating merged.lef which is present in the temp folder.
 
