@@ -340,6 +340,6 @@ Number of cells = 14876
 
 ![NosCell](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB21.png)
 
-**flop ratio = count of d flip flops / number of cells = 1613/14876 = 0.108429 (10.8429 %)**
+###So: **flop ratio = count of d flip flops / number of cells = 1613/14876 = 0.108429 (10.8429 %)**
 
-The synthesis statisttics report is as follows: 
+The synthesis statisttics report can bee seen above image. 
