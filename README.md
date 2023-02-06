@@ -296,7 +296,7 @@ prep -design picorv32a
 
 This marks the creation of new folder inside picorv32a named as runs folder which consists of new folder whose name is the date on which the command is run. The following folder has results, reports, command logs, PDK Sources, etc files.
 
-![image](https://user-images.githubusercontent.com/69652104/214785655-161be74d-583d-4241-8c5f-581fecd4f96f.png)
+![runs](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB11.png)
 
 **Step 3:** Running Synthesis
 
@@ -306,6 +306,8 @@ Yosys synthesis is run when the command for synthesis is entered. Along with it 
 run_synthesis
 ```
 
+ ![sysnth](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB18.png)
+ 
 After running systhesis logs, reports and results are created.
 
 The report folder have the following files: 
