@@ -284,7 +284,7 @@ Checking our config.tcl file values by running the below command in picorv32a fo
 less config.tcl
 ```
 
-![image](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB9.png)
+![configure](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB9.png)
 
 * Creating file for our design i.e., setting up the design. It merges the cell LEF files and the technology LEF files generating merged.lef which is present in the temp folder.
 
@@ -292,7 +292,7 @@ less config.tcl
 prep -design picorv32a
 ```
 
-![image](https://user-images.githubusercontent.com/69652104/214783771-fdd2623b-1b9c-4a92-acd2-633521396d50.png)
+![prep](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB10.png)
 
 This marks the creation of new folder inside picorv32a named as runs folder which consists of new folder whose name is the date on which the command is run. The following folder has results, reports, command logs, PDK Sources, etc files.
 
