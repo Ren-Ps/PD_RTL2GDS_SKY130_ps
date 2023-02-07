@@ -345,7 +345,7 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 - **Aspect Ratio** is defined as the ratio between height and the width of core.
  
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th1.png">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th1.png"> </p>
  #### Height and Width of Chip
 
 2. **The location of Preplaced Cell**
@@ -354,7 +354,7 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 - These pre-placement cell need to be surrounded by decoupling capacitors.
 
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th2.png">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th2.png">  </p>
  #### Location of Preplaced Cell
  
 3. **Surround preplaced cells with decoupling capacitors**
@@ -362,7 +362,7 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 -  Utilizing **decoupling capacitors** which are hudge bunch of capacitor completely filled with charges, close to the logic block will provide the necessary current for the logic block to switch inside the desired noise margin range.
 
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th3.png">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th3.png">  </p>
  #### Decoupling capacitors surrounding the preplaced blocks
  
 4. **Power Planning**
@@ -371,7 +371,7 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 -  The reason for problem of voltage droop and ground bounce is because the supply has been provided only from one point so we use multiple power source taps (power mesh) are the solution, allowing components to source current from the closest VDD tap and sink current to the closest VSS tap. The majority of processors include several powersource pins because of this.
 
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th4.png">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th4.png">  </p>
  #### Four blocks with multiple power suppies
 
 ![pPLAN](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th5.png)
@@ -383,14 +383,14 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 - Since this clock must be able to drive the entire chip so the clock pin is thicker (lowest resistance route) than data ports.
 
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th6.png">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th6.png">  </p>
  #### Pin Placement in a Chip
  
 6. **Logical Cell Placement Blockage**
 - This ensures that no cells are placed by the automated placement and routing tool on the die's pin locations.
 
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th7.png">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th7.png">  </p>
  #### Chip with Logical Cell Placement Blockage
  
  ### Steps to run and view floorplan using OpenLANE
