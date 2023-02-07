@@ -26,15 +26,21 @@ This repo contents learning info and steps followed during the workshop of Advan
        - [Contents of the OpenLANE Directory](#contents-of-the-openlane-directory)
        - [LAB Day 1](#lab-day-1)
        - [TASK 1: Finding the d flip flop ratio](#TASK-1-finding-the-d-flip-flop-ratio)
-* [Day 2 - Good floorplan vs bad floorplan and introduction to library cells](#day-1---good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
-    - [Chip Floor planning](#chip-floor-planning)
-       - [Utilization factor and aspect ratio](#utilization-factor-and-aspect-ratio)
-       - [Concept of pre-placed cells](#concept-of-pre---placed-cells)
-       - [De-coupling capacitors](#de---coupling-capacitors)
-       - [Power planning](#power-planning)
-       - [Pin Placement and logical cell placement blockage](#pin-placement-and-logical-cell-placement-blockage)
-       - [Placement and routing](#placement-and-routing)
-       - [LAB Day 2](#lab-day-2)
+* [Day 2 - Good floorplan vs bad floorplan and introduction to library cells](#day-2---good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells
+)
+    - [Stages of Floorplanning:](#stages-of-floorplanning)
+       - [The height and width of core and die](#the-height-and-width-of-core-and-die)
+       - [The location of Preplaced Cell](#the-location-of-preplaced-cell)
+       - [Surround preplaced cells with decoupling capacitors](#surround-preplaced-cells-with-decoupling-capacitors)
+       - [Power Planning](#power-planning)
+       - [Pin Placement](#pin-placement)
+       - [Logical Cell Placement Blockage](#logical-cell-placement-blockage)
+    - [Placement and routing](#placement-and-routing)
+       - [Introduction to Placement](#introduction-to-placement)
+       - [Initial placement of cells in our floorplan](#initial-placement-of-cells-in-our-floorplan)
+       - [Optimised placement of cells in our floorplan after using buffers] (#optimised-placement-of-cells-in-our-floorplan-after-using-buffers)
+       - [Placement is done on two stages](#Placement-is-done-on-two-stages)
+    - [LAB Day 2](#lab-day-2)
        - [TASK 2: Calculating area](#task-2-calculating-area)
 * [Day 3 - Design library cell using Magic Layout and ngspice characterization](#day-3---design-library-cell-using-magic-layout-and-ngspice-characterization)
    - [LAB Day 3](#lab-day-3)
@@ -392,5 +398,7 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th7.png">  </p>
+ 
+ ###We are done with Floor and Power Planning.
  
  ### Steps to run and view floorplan using OpenLANE
