@@ -399,6 +399,32 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th7.png">  </p>
  
- ###We are done with Floor and Power Planning.
+We are done with Floor and Power Planning.!
  
- ### Steps to run and view floorplan using OpenLANE
+### Placement in OpenLANE
+---
+- **Library** consists of shape and size of all the standard cells(the different sizes of same standard cells is known as **drive strength**, lower size standard cell has lower driving strength), various functionality  of the same cells, timing and delay information of all the cells.
+- We also keep decap cells, macros and IPs in Library.
+#### Introduction to Placement 
+- After floorplanning, next comes placement, it determines location of each of the components on the die. The standard cells that are present in the generated netlist are not the only cells that are placed. Placement enhances the design, removing any timing violations brought created  by the relative placement on the die.
+- In placement we bind the netlist to a real-size physical cell. The physical standard cell will be taken from a library that offers various alternatives for the identical cells, shapes, dimensions, and delay.
+- They are place it in the floorplaning(which have properly positioned input and output ports that are well designed) according to our netlist. To minimise timing delay, the flip flops must be positioned as close to the input and output pins as practicable.
+- **The main goal of placement is to make sure Standard Cells are correctly placed in Standard Cells roots**
+
+#### Initial placement of cells in our floorplan
+![Iniplmnt](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th8.png)
+
+- To keep the **signal integrity**(Signal integrity or SI is a set of measures of the quality of an electrical signal. In digital electronics, a stream of binary values is represented by a voltage or current waveform.) we optimise placement, for that we calculate the wirelength and capacitance (C=εA/d) and then add **repeaters** and **buffers** based on those values. The wirelength will cause a capacitance and a resistance that will result in unwanted voltage drops and slew rates(slew is inversly proportional to capacitance) that might not be allowed for logic gates that switch current quickly. Inserting buffers for lengthy lines that serve as intermediaries and divide a single long wire into multiple ones would reduce resistance and capacitance. 
+- If it needs to operate at a high frequency(2GHz), we occasionally also do **abutment**, in which logic cells are put very close to one another (virtually with zero delay). 
+- Route crisscrossing is a common occurrence in PnR because the crisscrossed path can be implemented utilising a different metal layer (vias).
+
+#### Optimised placement of cells in our floorplan after using buffers
+![optimzd](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th9.png)
+
+- After placement optimization, timing analysis will be set up using an ideal clock, which has no wire delays and no clock buffer-related delays because CTS has not yet been completed.
+
+Placement is now focused on **congestion rather than timing**. Standard cells are also not placed on the floorplan stage; rather, they are placed on the placement stage. The cells that are placed on the floorplan stage are macros or preplaced cells. 
+
+#### Placement is done on two stages:
+- **Global Placement** is placement without legalisations with the intention of cutting down on wirelength.The main function of Global Placement is to reduce wirelengthand in OpenLANE use the concept of of the HPWL (Half Perimeter Wirelength) reduction concept.
+- **Detailed Placement** is placement with legalisation(legalisation is more required for timing point of view), where the standard cells must be adjacent, in standard rows, and without overlaps.
