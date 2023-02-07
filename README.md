@@ -346,7 +346,7 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
  
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th1.png"> </p>
- #### Height and Width of Chip
+
 
 2. **The location of Preplaced Cell**
 - **Preplaced Cell** are complex logic blocks that are previously implemented but can be reused, such as memory, clock-gating cells, MUX's, comparator, etc. Prior to placement and routing, the user-defined placement on the core must be completed (thus preplaced cells). 
@@ -355,15 +355,15 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th2.png">  </p>
- #### Location of Preplaced Cell
+
  
 3. **Surround preplaced cells with decoupling capacitors**
 - The complex preplaced logic block needs a lot of current from the power supply to switch the current. However, due to the resistance and inductance of the wire, there will be a voltage drop because of the distance between the main power supply and the logic block. As a result, the voltage at the logic block might no longer fall within the noise margin range (logic become unstable).
 -  Utilizing **decoupling capacitors** which are hudge bunch of capacitor completely filled with charges, close to the logic block will provide the necessary current for the logic block to switch inside the desired noise margin range.
 
+   Decoupling capacitors surrounding the preplaced blocks
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th3.png">  </p>
- #### Decoupling capacitors surrounding the preplaced blocks
  
 4. **Power Planning**
 - It is not possible to apply a decoupling capacitor for sourcing logic blocks with enough current throughout the entire chip, only on the important components (preplaced complex logicblocks). 
@@ -372,10 +372,12 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th4.png">  </p>
- #### Four blocks with multiple power suppies
 
-![pPLAN](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th5.png)
  #### Power Planning showing multiple power source taps
+ 
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th5.png"> </p>
+
 
 5. **Pin Placement**
 - The area between the core and the die is where the input and output ports are located.
@@ -384,13 +386,11 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th6.png">  </p>
- #### Pin Placement in a Chip
  
 6. **Logical Cell Placement Blockage**
 - This ensures that no cells are placed by the automated placement and routing tool on the die's pin locations.
 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th7.png">  </p>
- #### Chip with Logical Cell Placement Blockage
  
  ### Steps to run and view floorplan using OpenLANE
