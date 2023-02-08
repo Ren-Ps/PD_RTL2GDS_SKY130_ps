@@ -244,7 +244,7 @@ The following content is specific to the workshop. There are lot of other files 
 * config.tcl
 * Default value (already set in OpenLane)
 
-### LAB Day 1
+### LAB DAY 1:
 
 
 **Step 1:** Starting OpenLane
@@ -539,6 +539,54 @@ The slew timing parameters are listed below. Two inverters are connected in seri
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th22.png">  </p>
     
-- **Propogation Delay** is defined as time {(out_thr)-time(in_thr)}
-- **Transition Time** is defined as {time(slew_high_rise_thr)-time(slew_low_rise_thr)} or {time(slew_high_fall_thr)-time(slew_low_fall_thr)}
+- **Propogation Delay** is defined as, time(out_thr)-time(in_thr)
+- **Transition Time** is defined as, time(slew_high_rise_thr)-time(slew_low_rise_thr)  **OR**  time(slew_high_fall_thr)-time(slew_low_fall_thr).
+- 
 - It's unexpected to see negative propagation delay because the output occurs before the input. So in that case the designer must select the proper threshold value to create a positive delay. The typical delay threshold is 50% and slew low thresholds is 20% of Vdd and slew high threshold 80% of Vdd.
+
+### LAB DAY 2 :
+
+### Steps to run and view floorplan using OpenLANE
+---
+1. **Set configuration variables** 
+- The configuration variables or switches must be set up before to starting the floorplan stage.. 
+- The configuration variables location is 
+- > pssh23@vsd-pd-workshop-01:~/Desktop/work/tools/openlane_working_dir/openlane/configuration$
+```
+.
+├── README.md      
+├── floorplan.tcl 
+├── cts.tcl
+├── checkers.tcl
+├── general.tcl
+├── lvs.tcl
+├── synthesis.tcl 
+├── routing.tcl
+└── placement.tcl
+```
+
+The default OpenLANE settings are contained in the `.tcl` files, and the `README.md` defines every configuration variable for every stage. 
+    
+#### `README.md` file contains,
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB1.png">  </p>   
+    
+> pssh23@vsd-pd-workshop-01:~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a$ vim config.tcl 
+   
+- Here we find every configuration that the current run has approved. This could originate from (in order of priority):
+- 
+- PDK specific configuration `sky130A_sky130_fd_sc_hd_config.tcl` inside the `openlane/design/picorv32a` folder
+- `config.tcl` inside the `openlane/designs/picorv32a` folder
+- System default settings inside `openlane/configurations`
+
+#### `floorplan.tcl` file contains,
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB2.png">  </p>   
+
+2. **Run floorplan on OpenLane:** 
+- Use this command OpenLane
+```
+    run_floorplan
+```
