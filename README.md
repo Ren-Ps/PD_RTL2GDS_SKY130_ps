@@ -604,9 +604,9 @@ In case it is not there we can check it using the Magic tool.
  - setting the core utilization, verticle and horizontal metal layer by add these three switchs in the config.tcl file
 
 ```
-set ::env(FP_CORE_UTIL) 50
-set ::env(FP_IO_VMETAL) 3
-set ::env(FP_IO_HMETAL) 4
+set ::env(FP_CORE_UTIL) 65
+set ::env(FP_IO_VMETAL) 4
+set ::env(FP_IO_HMETAL) 3
 ```
 
 #### Calculations of Die Area
