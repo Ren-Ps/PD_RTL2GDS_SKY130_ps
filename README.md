@@ -617,6 +617,7 @@ The **def(design exchange format)** file, containing the die area and positions 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB7.png">  </p>    
 
+
 - One micrometre is equal to 1000 database units in this case when the die area is expressed in database units. 
 - The **die's surface area is therefore 443587 microns squared**, or (660685/1000)microns*(671405/1000)microns.
 
