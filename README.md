@@ -587,3 +587,38 @@ Here we find every configuration that the current run has approved. This could o
 ```
     run_floorplan
 ```
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB4.png">  </p>   
+ 
+ 3.**Review floorplan files:**
+Here basically the ceated files are being checkd using the log files presen in the `log/floorpla/4-ioPlacer.log`. 
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB5.png">  </p>   
+
+In case it is not there we can check it using the Magic tool.
+
+ - for floorplan the core utilization is 50%
+
+ - for config.tcl file under the runs folder core utilization is 35%.
+    
+ - setting the core utilization, verticle and horizontal metal layer by add these three switchs in the config.tcl file
+
+```
+set ::env(FP_CORE_UTIL) 50
+set ::env(FP_IO_VMETAL) 3
+set ::env(FP_IO_HMETAL) 4
+```
+
+#### Calculations of Die Area
+
+The **def(design exchange format)** file, containing the die area and positions which is at location 
+> pssh23@vsd-pd-workshop-01:~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/29-01_11-50/results/floorplan$ vim picorv32a.floorplan.def
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB7.png">  </p>    
+
+- One micrometre is equal to 1000 database units in this case when the die area is expressed in database units. 
+- The **die's surface area is therefore 443587 microns squared**, or (660685/1000)microns*(671405/1000)microns.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB6.png">  </p> 
