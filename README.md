@@ -551,7 +551,7 @@ The slew timing parameters are listed below. Two inverters are connected in seri
 1. **Set configuration variables** 
 - The configuration variables or switches must be set up before to starting the floorplan stage.. 
 - The configuration variables location is 
-- > pssh23@vsd-pd-workshop-01:~/Desktop/work/tools/openlane_working_dir/openlane/configuration$
+  > pssh23@vsd-pd-workshop-01:~/Desktop/work/tools/openlane_working_dir/openlane/configuration$
 ```
 .
 ├── README.md      
@@ -571,11 +571,8 @@ The default OpenLANE settings are contained in the `.tcl` files, and the `README
 
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB1.png">  </p>   
-    
-> pssh23@vsd-pd-workshop-01:~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a$ vim config.tcl 
    
-- Here we find every configuration that the current run has approved. This could originate from (in order of priority):
-- 
+Here we find every configuration that the current run has approved. This could originate from (in order of priority):
 - PDK specific configuration `sky130A_sky130_fd_sc_hd_config.tcl` inside the `openlane/design/picorv32a` folder
 - `config.tcl` inside the `openlane/designs/picorv32a` folder
 - System default settings inside `openlane/configurations`
