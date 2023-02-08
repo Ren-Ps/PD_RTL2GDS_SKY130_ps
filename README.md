@@ -443,3 +443,102 @@ Placement is now focused on **congestion rather than timing**. Standard cells ar
 #### Placement is done on two stages:
 - **Global Placement** is placement without legalisations with the intention of cutting down on wirelength.The main function of Global Placement is to reduce wirelengthand in OpenLANE use the concept of of the HPWL (Half Perimeter Wirelength) reduction concept.
 - **Detailed Placement** is placement with legalisation(legalisation is more required for timing point of view), where the standard cells must be adjacent, in standard rows, and without overlaps.
+
+
+### Cell Design Flow
+---
+
+In IC design flow a library is a place where we keep all our standard cells, buffers, decap cell, etc. The library does not only have different cells with different functionality but it also have same cell with different sizes, threshold voltage, delays, etc.
+
+- In Cell design we will look at how a standard cell is designed in the library
+#### Inputs to Cell Design Flow
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th10.png">  </p>
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th11.png">  </p>
+
+**Library and user Defined Specs**
+- **Cell height** has been defined as the seperation between power and the ground rail and it is the responsibilty of the cell develepor that cell height is mantained. Cell height depends on the timing information(if the cell height is high then it would be able to drive more longer wire, that is called higher drive strength cells)
+- The standard cells has to operate at a certain **Supply Voltage** which is beign provided by the top level designer and accordingly the library devloper has to take that supply voltage and design the library cell such that it specifies supply voltage.
+- **Metal Layer**, **Pin Locations**, **Drawn Gate Length** requirments has to be decided by the library devloper.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th12.png">  </p>
+ 
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th13.png">  </p>
+
+#### Design steps Outputs of Cell Design Flow
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th14.png">  </p>
+ 
+- **Circuit Design** step is mostly based on spice simulations.
+- From the circuit design step we get output called as **CDL(circuit discription language) file**
+- So from circuit design step onse we known about the W/L ratios of nmos and pmos, then we need to implement it in layout design.
+- **Art of Layout is Eular's path and stick diagram**
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th15.png">  </p>
+ 
+- In **Layout Design** first step is to get the logic implemented with the help of nmos and pmos transistors and get a nmos and pmos nework graph out of our design and obtain the Eular's path(path wich has been traced only once) and then go for stick diagram out of it. 
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th16.png">  </p>
+
+- Later we convert this stick diagram into a proper layout according to the rules which we have got from the input.
+- Final step is to extrace the paracitcs out of the final layout and characterize it in terms of timing.
+- The output of the layout will be **GDSII(Graphic Design System II) file**, **LEF(Library Exchange Format ) file**(define width and heigt of the cell) and the **extraced spice netlist**(define resistance and capacitance of all the nodes)
+
+
+### Characterization 
+---
+- Next step after we get the extraced step netlist and layout is characterization(*that's what this course is all about*)
+- **Characterization** helps us to get timing, noise and power information.
+- The output of characterization is **timing, noise, power.lib files** and the **functionality** of this circuit
+
+#### Characterization Flow
+1. Read in the models files
+2. Read the extreaced spice netlist
+3. Recognize the behaviour of the buffer
+4. Read the sub circuits of the inverter
+5. Attach the necessary power sources 
+6. Apply the stimulus
+7. Provide the necessary output capacitances 
+8. Prove the necessary simulation commands
+#### Characterization Setup
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th18.png">  </p>
+ 
+  <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th19.png">  </p>
+
+- Next step is to feed in all these inputs from 1 to 8 as in form of a configuration file to the characterization software called as **GUNA** and this software will generate timing, noise and power models.
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th20.png">  </p>
+
+- The output of GUNA(.lib files) are characterized into :
+1. Timing Characterization
+2. Power Characterization
+3. Noise Characterization
+  
+### Timing Characterization:
+---
+The slew timing parameters are listed below. Two inverters are connected in series, called as buffers(circuit is shown above)
+#### Propogation Delay and Transition Time
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th21.png">  </p>
+    
+- The timing parameters for propagation delay are listed below.
+    
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th22.png">  </p>
+    
+- **Propogation Delay** is defined as time {(out_thr)-time(in_thr)}
+- **Transition Time** is defined as {time(slew_high_rise_thr)-time(slew_low_rise_thr)} or {time(slew_high_fall_thr)-time(slew_low_fall_thr)}
+- It's unexpected to see negative propagation delay because the output occurs before the input. So in that case the designer must select the proper threshold value to create a positive delay. The typical delay threshold is 50% and slew low thresholds is 20% of Vdd and slew high threshold 80% of Vdd.
