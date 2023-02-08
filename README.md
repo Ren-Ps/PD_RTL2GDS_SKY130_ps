@@ -379,7 +379,7 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th4.png">  </p>
 
- #### Power Planning showing multiple power source taps
+         ####  Power Planning showing multiple power source taps
  
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th5.png"> </p>
@@ -399,17 +399,17 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th7.png">  </p>
  
-Inputs for floorplan:
+**Inputs for floorplan:**
 
-Netlist (.v)
+- Netlist (.v)
 
-Technology file (techlef)
+- Technology file (techlef)
 
-Timing Library files (.lib)
+- Timing Library files (.lib)
 
-Physical library (.lef)
+- Physical library (.lef)
 
-Synopsys design constraints (.sdc)
+- Synopsys design constraints (.sdc)
 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th23.png">  </p>
