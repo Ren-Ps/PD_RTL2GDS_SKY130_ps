@@ -643,3 +643,7 @@ magic -T /home/kunalg123/Desktop/work/tools/openlane_working_dir/pdks/sky130A/li
 - `def read <address_of_picorv32a.floorplan.def_file>` to read the def files (we use `def read` because its a standard industry file) 
 - **NOTE** If address of the required file is at the same working loaction then we just need to provide the required file name.
 
+#### Floorplan looks as,
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB6.png">  </p> 
