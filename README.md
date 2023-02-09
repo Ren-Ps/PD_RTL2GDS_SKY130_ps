@@ -664,6 +664,9 @@ magic -T /home/kunalg123/Desktop/work/tools/openlane_working_dir/pdks/sky130A/li
 ```
 run_placement
 ```
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB9.png">  </p> 
+
 - To run Global Placement in OpenLANE run `% run_placement` command in openlane
 - This command is a wrapper which does global placement (performed by RePlace tool),, optimization by Resier's  tool, and ReSer's detailed placement functions (by OpenDP tool). 
 - It shows hundreds of iterations with HPWL and OVFL displayed. If the overflow is getting smaller, the algorithm is considered to be converging. It additionally verifies legality.
@@ -701,7 +704,7 @@ This `sky130A.tech`(technology), `merged.lef`(layout exchange format) and `picor
 
 ***NOTE*** - This power distribution network gets created during floorplan but in OpenFLOW right now the order is little different, the floorplan does not create this power distribution network, it is done in Post CTS(Clock Tree Synthesis) just before we route it.
 
-
-
  
- placement done.
+***placement done..!
+ 
+ 
