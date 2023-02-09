@@ -583,14 +583,14 @@ Here we find every configuration that the current run has approved. This could o
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB2.png">  </p>   
 
 2. **Run floorplan on OpenLane:** 
-- Use this command OpenLane
+- Useing command in OpenLane,
 ```
     run_floorplan
 ```
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB4.png">  </p>   
  
- 3.**Review floorplan files:**
+3. **Review floorplan files:**
 Here basically the ceated files are being checkd using the log files presen in the `log/floorpla/4-ioPlacer.log`. 
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB5.png">  </p>   
@@ -625,7 +625,7 @@ The **def(design exchange format)** file, containing the die area and positions 
  
 **Calculating the Die Area = (660685 / 1000) x (671405/1000) = 443587.2124 um <sup>2</sup>**
 
-4. **View the floorplan in magic**
+4. **View the floorplan in magic:**
 
 For visualising the layout following a floorplan, utilise the Magic Layout Tool. The following three files are necessary in order to examine a floor layout in Magic
 - Technology File `sky130A.tech` (provided by foundary here its provided by pdk of sky130)
@@ -655,3 +655,17 @@ magic -T /home/kunalg123/Desktop/work/tools/openlane_working_dir/pdks/sky130A/li
  
  - **Taps Cells** are ment to avoid the lachup condition which occur in the cmos devices, they connect the nwell to th vdd and the substrate to the ground. Here they are diagonaly equdistant which alraedy has ben set in readme file
 - Floarplan do not take into considerations the placement of **standard cells**, but standard cells are present at the corner.
+
+5. **Run Placement on OpenLane:** 
+
+```
+run_placement
+```
+- To run Global Placement in OpenLANE run `% run_placement` command in openlane
+- This command is a wrapper which does global placement (performed by RePlace tool),, optimization by Resier's  tool, and ReSer's detailed placement functions (by OpenDP tool). 
+- It shows hundreds of iterations with HPWL and OVFL displayed. If the overflow is getting smaller, the algorithm is considered to be converging. It additionally verifies legality.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/lld3.png">  </p> 
+ 
+ placement done.
