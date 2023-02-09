@@ -551,7 +551,7 @@ The slew timing parameters are listed below. Two inverters are connected in seri
 1. **Set configuration variables** 
 - The configuration variables or switches must be set up before to starting the floorplan stage.. 
 - The configuration variables location is 
-  > pssh23@vsd-pd-workshop-01:~/Desktop/work/tools/openlane_working_dir/openlane/configuration$
+  > pssh23@vsd-pd-workshop-05:~/Desktop/work/tools/openlane_working_dir/openlane/configuration$
 ```
 .
 ├── README.md      
@@ -609,10 +609,10 @@ set ::env(FP_IO_VMETAL) 4
 set ::env(FP_IO_HMETAL) 3
 ```
 
-#### Calculations of Die Area
+### TASK 2: Calculating Die Area
 
 The **def(design exchange format)** file, containing the die area and positions which is at location 
-> pssh23@vsd-pd-workshop-01:~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/29-01_11-50/results/floorplan$ vim picorv32a.floorplan.def
+> pssh23@vsd-pd-workshop-05:~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/29-01_11-50/results/floorplan$ vim picorv32a.floorplan.def
 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB7.png">  </p>    
@@ -623,5 +623,23 @@ The **def(design exchange format)** file, containing the die area and positions 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB6.png">  </p> 
  
- ### TASK 2: Calculating area
-**Calculating the die area = (660685 / 1000) x (671405/1000) = 443587.2124 um <sup>2</sup>**
+**Calculating the Die Area = (660685 / 1000) x (671405/1000) = 443587.2124 um <sup>2</sup>**
+
+4. **View the floorplan in magic**
+
+For visualising the layout following a floorplan, utilise the Magic Layout Tool. The following three files are necessary in order to examine a floor layout in Magic
+- Technology File `sky130A.tech` (provided by foundary here its provided by pdk of sky130)
+- Merged LEF file `merged.lef`(Library Exchange Format files are provided by foundary which contain design rules and abstract information about the standard cells)
+- `vim picorv32a.floorplan.def` files (Design Exchange Format files are generated after floorplanning and contains the placement information of macros , standard cells, I/O pins and other physical entities)
+
+To open layout in magic use this command in this location
+> pssh23@vsd-pd-workshop-05:~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/29-01_11-50/results/floorplan$
+
+```
+magic -T /home/kunalg123/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def
+```
+- `-T <address_of_sky130A.tech_file>` where T is for technology file 
+- `lef read <address_of_merged.lef_file>` to read the lef files (we use `lef read` because its a standard industry file)
+- `def read <address_of_picorv32a.floorplan.def_file>` to read the def files (we use `def read` because its a standard industry file) 
+- **NOTE** If address of the required file is at the same working loaction then we just need to provide the required file name.
+
