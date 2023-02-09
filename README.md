@@ -705,6 +705,7 @@ This `sky130A.tech`(technology), `merged.lef`(layout exchange format) and `picor
 ***NOTE*** - This power distribution network gets created during floorplan but in OpenFLOW right now the order is little different, the floorplan does not create this power distribution network, it is done in Post CTS(Clock Tree Synthesis) just before we route it.
 
  
-***placement done..!
+***placement done..!***
  
  
+## Day 3 : Design library cell using Magic Layout and ngspice characterization
