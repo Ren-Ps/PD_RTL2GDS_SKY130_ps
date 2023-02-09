@@ -646,4 +646,12 @@ magic -T /home/kunalg123/Desktop/work/tools/openlane_working_dir/pdks/sky130A/li
 #### Floorplan looks as,
 
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB6.png">  </p> 
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB8-3.png">  </p> 
+
+#### Description of blocks of floorplan
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB8-2.png">  </p> 
+ 
+ - **Taps Cells** are ment to avoid the lachup condition which occur in the cmos devices, they connect the nwell to th vdd and the substrate to the ground. Here they are diagonaly equdistant which alraedy has ben set in readme file
+- Floarplan do not take into considerations the placement of **standard cells**, but standard cells are present at the corner.
