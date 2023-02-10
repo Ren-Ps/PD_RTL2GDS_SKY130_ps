@@ -534,16 +534,47 @@ In IC design flow a library is a place where we keep all our standard cells, buf
 The slew timing parameters are listed below. Two inverters are connected in series, called as buffers(circuit is shown above)
 #### Propogation Delay and Transition Time
 
+- Timing Threshold Definitions:
+  - slew_low_rise_thr:
+    - Defines the point towards the lower set of the rising curve of the output.
+    - Typically 20% of Vdd.
+  - slew_high_rise_thr:
+    - Defines the point towards the higher set of the rising curve of the output.
+    - Typically 80% of Vdd.
+  - slew_low_fall_thr:
+    - Defines the point towards the lower set of the falling curve of the output.
+    - Typically 20% of Vdd.
+  - slew_high_fall_thr:
+    - Defines the point towards the higher set of the falling curve of the output.
+    - Typically 80% of Vdd.
+  - in_rise_thr:
+    - Defines the point towards the centre of the rising curve of the input.
+    - Typically 50%
+  - in_fall_thr:
+    - Defines the point towards the centre of the falling curve of the input.
+    - Typically 50%
+  - out_rise_thr:
+    - Defines the point towards the centre of the rising curve of the output.
+    - Typically 50%
+  - out_fall_thr:
+    - Defines the point towards the centre of the falling curve of the output.
+    - Typically 50%
+ 
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th21.png">  </p>
     
-- The timing parameters for propagation delay are listed below.
+The timing parameters for propagation delay are listed below.
     
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th22.png">  </p>
     
-- **Propogation Delay** is defined as, time(out_thr)-time(in_thr)
-- **Transition Time** is defined as, time(slew_high_rise_thr)-time(slew_low_rise_thr)  **OR**  time(slew_high_fall_thr)-time(slew_low_fall_thr).
+- **Propogation Delay** The formula of propogation delay becomes: 
+
+- If output fall threshold is chosen then input rise threshold must be chosen and if output rise threshold is chosen then input fall threshold must be chosen.
+- The delay should always come positive.
+- Negative delay is not expected and if negative delay is received then it is due to poor choice of threshold points.
+
+- **Transition Time** The formula for Transition time becomes:
 - 
 - It's unexpected to see negative propagation delay because the output occurs before the input. So in that case the designer must select the proper threshold value to create a positive delay. The typical delay threshold is 50% and slew low thresholds is 20% of Vdd and slew high threshold 80% of Vdd.
 
@@ -709,3 +740,45 @@ This `sky130A.tech`(technology), `merged.lef`(layout exchange format) and `picor
  
  
 ## Day 3 : Design library cell using Magic Layout and ngspice characterization
+---
+### Labs for CMOS inverter ngspice simulations
+--- 
+In this we would be going into depth of one of the cells(inverter cell), we won't build it from scratch rather we would use the github to get the `.mag`(magic) files and from there we will be doing Post Layout simulation in ngspice and post characterizing our sample cell, we would be plugging this cell into a OpenLANE flow, into picorv32a core.
+    
+**NOTE** - In I/O placement in floorplan on OpenLANE, configurations can be modified while in flight. On OpenLANE, for instance, use  `set ::env(FP_IO_MODE) 2` to make I/O mode not equidistant. On mode 2, the I/O pins won't be evenly spaced out(default of 1). View the `.def` layout for magic by launching floorplan once more with `run floorplan`. The configuration will only be available for the current session if it is changed on the fly; it will not be changed in `runs/config.tcl`, whereas `echo $::env(FP_IO_MODE)`is used to output the variable's most recent value.
+
+First we need to design the library cells:
+
+#### Creating SPICE deck for CMOS Inverter
+
+1. SPICE Deck - It is a connectivity information about a cell. It is a netlist. It has the inputs, tap points, etc.
+
+2. We need to define the component parameter i.e., value for PMS and NMOS. For us value of W/L of PMOS M1 (0.375u/o.25u) and NMOS M2 (0.375u/0.25). Ideally PMOS should be 2 or 3 times wider than NMOS. The load cap is assumed to be 10 fF. 
+
+3. We assume an input supply voltage value (GATE) as 2.5 V and main supply voltage (at drain) as 2.5 V. Generally the supply voltage (GATE) is multiple of length.
+
+4. Now we need to identify the node (those two point in b/w there is a component) and name these nodes.
+
+The SPICE Deck is written below: 
+
+```
+*** MODEL Description ***
+*** NETLIST Description ***
+M1 out in vdd vdd pmos W=o.375 L=0.25 *** [component name] [connectivity] [drain] [gate] [source] [substrate] [type] [dimensions W/L] ***
+*** Similarly for NMOS ***
+M2 out in vdd vdd nmos W=o.375 L=0.25
+*** load cap connecivity and value [name] [node1] [node2] [value] ***
+cload out 0 10f
+*** Supply voltage [name] [node1] [node2] [value] ***
+Vdd vdd 0 2.5
+*** Input voltage [name] [node1] [node2] [value] ***
+Vin in 0 2.5
+*** Simulation Command ***
+.op
+.dc Vin 0 2.5 0.05 *** Sweeping gate input form 0 to 2.5 at steeps of 0.05  VTC curve***
+*** describe the model file ***
+.LIB "tsmc_025ummodel.mod" CMOS_MODELS
+.end
+```
+
+Propogation Delay = (out_fall_thr TIME) - (in_rise_thr Time)	.....	OR	(out_rise_thr Time) - (in_fall_thr Time) .....
