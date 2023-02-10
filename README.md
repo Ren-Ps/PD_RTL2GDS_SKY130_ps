@@ -551,9 +551,9 @@ The slew timing parameters are listed below. Two inverters are connected in seri
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th22.jpg">  </p>
  
-- **Propogation Delay** The formula as, 
-                            ***Propogation Delay for_HIGH_to_LOW (tphl) =  (in_rise_thr Time) - (out_fall_thr Time)	***
-                            ***Propogation Delay for_LOW_to_HIGH (tplh)	=  (in_fall_thr Time) - (out_rise_thr Time) ***
+- The formula as, 
+<p align="center"> Propogation Delay for_HIGH_to_LOW (tphl) =  (in_rise_thr Time) - (out_fall_thr Time) </p>
+<p align="center"> Propogation Delay for_LOW_to_HIGH (tplh)	=  (in_fall_thr Time) - (out_rise_thr Time) </p>
                         
 - The delay should always come positive.
 - Negative delay is not expected and if negative delay is received then it is due to poor choice of threshold points.
@@ -564,9 +564,9 @@ The slew timing parameters are listed below. Two inverters are connected in seri
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th21.png">  </p>
  
-- **Transition Time** The formula as,
-                           ***Transition Time (rise) = (Slew_high_rise_thr Time)  -  (Slew_low_rise_thr Time) ***
-                           ***Transition Time (fall) = (Slew_high_fall_thr Time)  -  (Slew_fall_rise_thr Time) ***
+- The formula as,
+<p align="center"> Transition Time (rise) = (Slew_high_rise_thr Time)  -  (Slew_low_rise_thr Time) </p>
+<p align="center"> Transition Time (fall) = (Slew_high_fall_thr Time)  -  (Slew_fall_rise_thr Time) </p>
 
 - It's unexpected to see negative propagation delay because the output occurs before the input. So in that case the designer must select the proper threshold value to create a positive delay. 
 - The typical delay slew low thresholds is 20% of Vdd and slew high threshold 80% of Vdd.
