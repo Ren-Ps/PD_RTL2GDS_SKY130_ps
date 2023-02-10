@@ -520,28 +520,27 @@ In IC design flow a library is a place where we keep all our standard cells, buf
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th19.png">  </p>
 
 - Next step is to feed in all these inputs from 1 to 8 as in form of a configuration file to the characterization software called as **GUNA** and this software will generate timing, noise and power models.
-
+- The output of GUNA(.lib files) are characterized into :
+  - Timing Characterization
+  - Power Characterization
+  - Noise Characterization
+ 
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th20.png">  </p>
 
-- The output of GUNA(.lib files) are characterized into :
-1. Timing Characterization
-2. Power Characterization
-3. Noise Characterization
-  
 ### Timing Characterization:
 ---
 The slew timing parameters are listed below. Two inverters are connected in series, called as buffers(circuit is shown above)
 
 - Timing Threshold Definitions:
-  - slew_low_rise_thr: Defines the point towards the lower set of the rising curve of the output. Typically 20% of Vdd.
-  - slew_high_rise_thr: Defines the point towards the higher set of the rising curve of the output.Typically 80% of Vdd.
+  - slew_low_rise_thr:  Point towards the lower set of the rising curve of the output. Typically 20% of Vdd.
+  - slew_high_rise_thr: Point towards the higher set of the rising curve of the output. Typically 80% of Vdd.
 
-  - slew_low_fall_thr: Defines the point towards the lower set of the falling curve of the output. Typically 20% of Vdd.
-  - slew_high_fall_thr: Defines the point towards the higher set of the falling curve of the output. Typically 80% of Vdd.
+  - slew_low_fall_thr:  Point towards the lower set of the falling curve of the output. Typically 20% of Vdd.
+  - slew_high_fall_thr: Point towards the higher set of the falling curve of the output. Typically 80% of Vdd.
 
-  - in_rise_thr: Defines the point towards the centre of the rising curve of the input. Typically 50% of Vdd.
-  - in_fall_thr: Defines the point towards the centre of the falling curve of the input. Typically 50% of Vdd.
+  - in_rise_thr:  Defines the point towards the centre of the rising curve of the input. Typically 50% of Vdd.
+  - in_fall_thr:  Defines the point towards the centre of the falling curve of the input. Typically 50% of Vdd.
 
   - out_rise_thr: Defines the point towards the centre of the rising curve of the output. Typically 50% of Vdd.
   - out_fall_thr: Defines the point towards the centre of the falling curve of the output. Typically 50% of Vdd.
@@ -572,9 +571,7 @@ The slew timing parameters are listed below. Two inverters are connected in seri
 - The typical delay slew low thresholds is 20% of Vdd and slew high threshold 80% of Vdd.
 
 
-### LAB DAY 2 :
-
-### Steps to run and view floorplan using OpenLANE
+### LAB DAY 2 : Steps to run and view of Floorplan and Placement using OpenLANE
 ---
 1. **Set configuration variables** 
 - The configuration variables or switches must be set up before to starting the floorplan stage.. 
@@ -651,7 +648,8 @@ The **def(design exchange format)** file, containing the die area and positions 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB6.png">  </p> 
  
-**Calculating the Die Area = (660685 / 1000) x (671405/1000) = 443587.2124 um <sup>2</sup>**
+***Calculating the Die Area = (660685 / 1000) x (671405/1000) = 443587.2124 um <sup>2</sup>***
+
 
 4. **View the floorplan in magic:**
 
@@ -741,7 +739,7 @@ In this we would be going into depth of one of the cells(inverter cell), we won'
     
 **NOTE** - In I/O placement in floorplan on OpenLANE, configurations can be modified while in flight. On OpenLANE, for instance, use  `set ::env(FP_IO_MODE) 2` to make I/O mode not equidistant. On mode 2, the I/O pins won't be evenly spaced out(default of 1). View the `.def` layout for magic by launching floorplan once more with `run floorplan`. The configuration will only be available for the current session if it is changed on the fly; it will not be changed in `runs/config.tcl`, whereas `echo $::env(FP_IO_MODE)`is used to output the variable's most recent value.
 
-First we need to design the library cells:
+First we need to design the library cell.
 
 #### Creating SPICE deck for CMOS Inverter
 
@@ -755,23 +753,37 @@ First we need to design the library cells:
 
 The SPICE Deck is written below: 
 
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th3.png"> </p>
+
+- PMOS and NMOS descriptor syntax
+    + `[component name] [drain] [gate] [source] [substrate] [transistor type] W=[width] L=[length]`
+- Based on nodes and their values, all components are described.
+- For load cap connecivity and value `[name] [node1] [node2] [value]'
+- Supply voltage `[name] [node1] [node2] [value]`
+- Input voltage `[name] [node1] [node2] [value]`
+    
+**SIMULATION COMMANDS**
+- `.op` `.dc Vin 0 2.5 0.05` is the start of SPICE simulation operation where Vin will be sweep from 0 to 2.5 with 0.05 steps
+- `tsmc_025um_model.mod` is the model file which contain the technological parameters of the 0.25um NMOS and PMOS Devices.
+
+First invoke the ngspice and then run the following command to simulate:
+
 ```
-*** MODEL Description ***
-*** NETLIST Description ***
-M1 out in vdd vdd pmos W=o.375 L=0.25 *** [component name] [connectivity] [drain] [gate] [source] [substrate] [type] [dimensions W/L] ***
-*** Similarly for NMOS ***
-M2 out in vdd vdd nmos W=o.375 L=0.25
-*** load cap connecivity and value [name] [node1] [node2] [value] ***
-cload out 0 10f
-*** Supply voltage [name] [node1] [node2] [value] ***
-Vdd vdd 0 2.5
-*** Input voltage [name] [node1] [node2] [value] ***
-Vin in 0 2.5
-*** Simulation Command ***
-.op
-.dc Vin 0 2.5 0.05 *** Sweeping gate input form 0 to 2.5 at steeps of 0.05  VTC curve***
-*** describe the model file ***
-.LIB "tsmc_025ummodel.mod" CMOS_MODELS
-.end
+source [filename].cir
+run
+setplot 
+dc1 
+plot out vs in 
 ```
 
+#### Analysing the inverter
+
+* Vm (switching threshold voltage) - The point where exact transition takes place i.e., Vin = Vout. At this point both the MOS are in saturation and we have a high leakage current (direct current flowing from vdd to ground). If the pull up network is strong the VTC moves towards right (Vm' > Vm) and if pull down network is strong then VTC shifts leftwards (Vm' < Vm).
+
+**Formula for Vm**
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th1.png"> </p>
+ 
+ 
