@@ -532,51 +532,45 @@ In IC design flow a library is a place where we keep all our standard cells, buf
 ### Timing Characterization:
 ---
 The slew timing parameters are listed below. Two inverters are connected in series, called as buffers(circuit is shown above)
-#### Propogation Delay and Transition Time
 
 - Timing Threshold Definitions:
-  - slew_low_rise_thr:
-    - Defines the point towards the lower set of the rising curve of the output.
-    - Typically 20% of Vdd.
-  - slew_high_rise_thr:
-    - Defines the point towards the higher set of the rising curve of the output.
-    - Typically 80% of Vdd.
-  - slew_low_fall_thr:
-    - Defines the point towards the lower set of the falling curve of the output.
-    - Typically 20% of Vdd.
-  - slew_high_fall_thr:
-    - Defines the point towards the higher set of the falling curve of the output.
-    - Typically 80% of Vdd.
-  - in_rise_thr:
-    - Defines the point towards the centre of the rising curve of the input.
-    - Typically 50%
-  - in_fall_thr:
-    - Defines the point towards the centre of the falling curve of the input.
-    - Typically 50%
-  - out_rise_thr:
-    - Defines the point towards the centre of the rising curve of the output.
-    - Typically 50%
-  - out_fall_thr:
-    - Defines the point towards the centre of the falling curve of the output.
-    - Typically 50%
+  - slew_low_rise_thr: Defines the point towards the lower set of the rising curve of the output. Typically 20% of Vdd.
+  - slew_high_rise_thr: Defines the point towards the higher set of the rising curve of the output.Typically 80% of Vdd.
+
+  - slew_low_fall_thr: Defines the point towards the lower set of the falling curve of the output. Typically 20% of Vdd.
+  - slew_high_fall_thr: Defines the point towards the higher set of the falling curve of the output. Typically 80% of Vdd.
+
+  - in_rise_thr: Defines the point towards the centre of the rising curve of the input. Typically 50% of Vdd.
+  - in_fall_thr: Defines the point towards the centre of the falling curve of the input. Typically 50% of Vdd.
+
+  - out_rise_thr: Defines the point towards the centre of the rising curve of the output. Typically 50% of Vdd.
+  - out_fall_thr: Defines the point towards the centre of the falling curve of the output. Typically 50% of Vdd.
+ 
+ #### Propogation Delay
  
  <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th21.png">  </p>
-    
-The timing parameters for propagation delay are listed below.
-    
- <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th22.png">  </p>
-    
-- **Propogation Delay** The formula of propogation delay becomes: 
-
-- If output fall threshold is chosen then input rise threshold must be chosen and if output rise threshold is chosen then input fall threshold must be chosen.
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th22.jpg">  </p>
+ 
+- **Propogation Delay** The formula as, 
+                            ***Propogation Delay for_HIGH_to_LOW (tphl) =  (in_rise_thr Time) - (out_fall_thr Time)	***
+                            ***Propogation Delay for_LOW_to_HIGH (tplh)	=  (in_fall_thr Time) - (out_rise_thr Time) ***
+                        
 - The delay should always come positive.
 - Negative delay is not expected and if negative delay is received then it is due to poor choice of threshold points.
+- The designer must select the proper threshold value to create a positive delay. The typical delay threshold is 50%. 
 
-- **Transition Time** The formula for Transition time becomes:
-- 
-- It's unexpected to see negative propagation delay because the output occurs before the input. So in that case the designer must select the proper threshold value to create a positive delay. The typical delay threshold is 50% and slew low thresholds is 20% of Vdd and slew high threshold 80% of Vdd.
+ #### Transition Time
+ 
+  <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th21.png">  </p>
+ 
+- **Transition Time** The formula as,
+                           ***Transition Time (rise) = (Slew_high_rise_thr Time)  -  (Slew_low_rise_thr Time) ***
+                           ***Transition Time (fall) = (Slew_high_fall_thr Time)  -  (Slew_fall_rise_thr Time) ***
+
+- It's unexpected to see negative propagation delay because the output occurs before the input. So in that case the designer must select the proper threshold value to create a positive delay. 
+- The typical delay slew low thresholds is 20% of Vdd and slew high threshold 80% of Vdd.
+
 
 ### LAB DAY 2 :
 
@@ -781,4 +775,3 @@ Vin in 0 2.5
 .end
 ```
 
-Propogation Delay = (out_fall_thr TIME) - (in_rise_thr Time)	.....	OR	(out_rise_thr Time) - (in_fall_thr Time) .....
