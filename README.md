@@ -804,7 +804,7 @@ git clone https://github.com/nickson-jose/vsdstdcelldesign
 - To invoke magic to view the sky130_inv.mag file, the sky130A.tech file must be included in the command along with its path. To ease up the complexity of this command, the tech file can be copied from the magic folder to the vsdstdcelldesign folder.
 
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB11.png"> </p>
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB11-1.png"> </p>
  
 - The `sky130_inv.mag `file can then be invoked in Magic very easily:
 
