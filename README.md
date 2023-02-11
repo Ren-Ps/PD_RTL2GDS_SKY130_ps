@@ -790,6 +790,65 @@ plot out vs in
  
 As if needed further, transient analysis can be performed.
 
+### CMOS Fabrication Process (16-Mask CMOS Process):
+1. <b>Selecting a substrate</b> = Layer where the IC is fabricated. Most commonly used is P-type substrate
+2. <b>Creating active region for transistor</b> = Separate the transistor regions using SiO2 as isolation
+
+- Mask 1 = Covers the photoresist layer that must not be etched away (protects the two transistor active regions)
+- Photoresist layer = Can be etched away via UV light
+- Si3N4 layer = Protection layer to prevent SiO2 layer to grow during oxidation (oxidation furnace)
+- SiO2 layer = Grows during oxidation (LOCOS = Local Oxidation of Silicon) and will act as isolation regions between transistors or active regions
+
+![Screenshot 2023-01-29 at 1 32 56 PM](https://user-images.githubusercontent.com/68071764/215313442-6c2b49bd-eba9-4e72-aa40-7d8e53bca2c7.png)
+
+3. <b>N-Well and P-Well Fabrication</b> = Fabricate the substrate needed by PMOS (N-Well) and NMOS (P-Well)
+
+- Phosporus (5 valence electron) is used to form N-well
+- Boron (3 valence electron) is used to form P-Well.
+- Mask 2 protects the N-Well (PMOS side) while P-Well (NMOS side) is being fabricated then Mask 3 while N-Well (PMOS side) is being fabricated
+
+![Screenshot 2023-01-29 at 1 34 20 PM](https://user-images.githubusercontent.com/68071764/215313474-496fde2e-2cf3-4f02-b3d8-d3ac6756a450.png)
+
+4. <b>Formation of Gate</b> = Gate fabrication affects threshold voltage. Factors affecting threshold voltage includes:
+![Screenshot 2023-01-29 at 1 35 01 PM](https://user-images.githubusercontent.com/68071764/215313511-ae895cc8-4879-4593-8faa-86051a63102f.png)
+
+Main parameters are:
+
+- Doping Concentration = Controlled by ion implantation (Mask 4 for Boron implantation in NMOS P-Well and Mask 5 for Arsenic implantation in PMOS N-Well)
+- Oxide capacitance = Controlled by oxide thickness (SiO2 layer is removed then rebuilt to the desire thickness)
+Mask 6 is for gate formation using polysilicon layer.
+
+![Screenshot 2023-01-29 at 1 37 20 PM](https://user-images.githubusercontent.com/68071764/215313608-3414ea76-0f89-40a8-8e6b-dd9646c1c522.png)
+
+5. <b>Lightly Doped Drain formation </b>= Before forming the source and drain layer, lightly doped impurity is added:
+
+- Mask 7 for N- implantation (lightly doped N-type) for NMOS
+- Mask 8 for P- implantation (lightly doped P-type) for PMOS.
+- Heavily doped impurity (N+ for NMOS and P+ for PMOS) is for the actual source and drain but the lightly doped impurity will help maintain spacing between the source and drain and prevent hot electron effect and short channel effect.
+
+![Screenshot 2023-01-29 at 1 38 33 PM](https://user-images.githubusercontent.com/68071764/215313687-74c4ec20-9915-4a27-9ee6-5e97089cc1bf.png)
+
+6. <b>Source and Drain Formation </b>= Mask 9 is for N+ implantation and Mask 10 for P+ implantation
+
+Channeling is when implantations dig too deep into substrate so add screen oxide before implantation
+The side-wall spacers maintains the N-/P- while implanting the N+/P+
+
+![Screenshot 2023-01-29 at 1 40 36 PM](https://user-images.githubusercontent.com/68071764/215313831-1e3d87ae-25ba-42b3-9741-ab193825026a.png)
+
+7. <b>Form Contacts and Interconnects </b>= TiN is for local interconnections and also for bringing contacts to the top. TiS2 is for the contact to the actual Drain-Gate-Source. Mask 11 is for etching off the TiN interconnect for the first layer contact.
+
+![Screenshot 2023-01-29 at 1 41 45 PM](https://user-images.githubusercontent.com/68071764/215313884-fed4b522-7c5b-49e5-bd32-00ee7665f920.png)
+
+8. <b>Higher Level Metal Formation</b> = We need to planarize first the layer via CMP before adding a metal interconnect. Aluminum contact is used to connect the lower contact to higher metal layer. Process is repeated until the contact reached the outermost layer.
+
+- Mask 12 is for first contact hole
+- Mask 13 is for first Aluminum contact layer
+- Mask 14 is for second contact hole
+- Mask 15 is for second Aluminum contact layer. Mask 16 is for making contact to topmost layer.
+
+![Screenshot 2023-01-29 at 1 43 00 PM](https://user-images.githubusercontent.com/68071764/215313943-a93bcb30-6a40-47d3-9856-f1779097b8f8.png)
+
+
 ### Inverter Standard cell Layout & SPICE extraction
 
 - The Magic layout of a CMOS inverter will be used so as to intergate the inverter with the picorv32a design. To do this, inverter magic file is sourced from `vsdstdcelldesign` by cloning it within the `openlane_working_dir/openlane` directory as follows:
@@ -827,8 +886,19 @@ tech file = sky130A.tech .mag file = sky130_inv.mag
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB14.png"> </p>
 
+-In a magic layout, to check if there are connections between two parts of the circuit, press "S" button on keyboard 3 times.
+-LEF is library exchanged format.
+-Functionality of LEF is protecting the IP.
+-Using S to identify parts of the layout:
+
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB15.png"> </p>
+ 
+-In Sky130 the first layer is called the local interconnect layer or Locali as shown above (blue wave shape like squrs_blcks).
+-To verify whether the layout is that of CMOS inverter, verification of P-diffusiona nd N-diffusion regions with Polysilicon can be observed:
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB16.png"> </p>
 
 - Refer this [to build and inverter from scratch(workshop reference)](https://github.com/nickson-jose/vsdstdcelldesign)
 - [Video reference](https://www.youtube.com/watch?v=RPppaGdjbj0)
@@ -857,10 +927,21 @@ tech file = sky130A.tech .mag file = sky130_inv.mag
 
 
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB16.png"> </p>
-
-<p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB17.png"> </p>
 
 <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB18.png"> </p>
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB19.png"> </p>
+ 
+ Other verification steps are to check drain and source connections. The drains of both PMOS and NMOS must be connected to output port (here, Y) and the sources of both must be connected to power supply VDD (here, VPWR).
+
+<b>LEF or library exchange format:</b> A format that tells us about cell boundaries, VDD and GND lines. It contains no info about the logic of circuit and is also used to protect the IP.
+
+SPICE extraction: Within the Magic environment, following commands are used in tkcon to achieve .mag to .spice extraction:
+``` 
+extract all
+ext2spice cthresh 0 rethresh 0
+ext2spice
+ ```
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB21.png"> </p>
+ 
