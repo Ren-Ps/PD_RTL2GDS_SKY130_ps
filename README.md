@@ -569,9 +569,9 @@ The slew timing parameters are listed below. Two inverters are connected in seri
 
 - It's unexpected to see negative propagation delay because the output occurs before the input. So in that case the designer must select the proper threshold value to create a positive delay. 
 - The typical delay slew low thresholds is 20% of Vdd and slew high threshold 80% of Vdd.
-
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th2.png">  </p>
+
 
 ### LAB DAY 2 : Steps to run and view of Floorplan and Placement using OpenLANE
 ---
@@ -788,6 +788,27 @@ plot out vs in
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th1.png"> </p>
  
-As if needed further transient analysis can be performed.
+As if needed further, transient analysis can be performed.
 
+### Inverter Standard cell Layout & SPICE extraction
 
+- The Magic layout of a CMOS inverter will be used so as to intergate the inverter with the picorv32a design. To do this, inverter magic file is sourced from `vsdstdcelldesign` by cloning it within the `openlane_working_dir/openlane` directory as follows:
+```
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+```
+- This creates a vsdstdcelldesign named folder in the openlane directory.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB10.png"> </p>
+ 
+- To invoke magic to view the sky130_inv.mag file, the sky130A.tech file must be included in the command along with its path. To ease up the complexity of this command, the tech file can be copied from the magic folder to the vsdstdcelldesign folder.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB11.png"> </p>
+ 
+- The `sky130_inv.mag `file can then be invoked in Magic very easily:
+
+``` magic -T sky130A.tech sky130_inv.mag & ```
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB12.png"> </p>
