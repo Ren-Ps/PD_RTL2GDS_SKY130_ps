@@ -803,12 +803,64 @@ git clone https://github.com/nickson-jose/vsdstdcelldesign
  
 - To invoke magic to view the sky130_inv.mag file, the sky130A.tech file must be included in the command along with its path. To ease up the complexity of this command, the tech file can be copied from the magic folder to the vsdstdcelldesign folder.
 
+```
+cp sky130A.tech /[target location]
+
+target location here - /home/pssh23/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+```
+
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB11-1.png"> </p>
  
 - The `sky130_inv.mag `file can then be invoked in Magic very easily:
 
-``` magic -T sky130A.tech sky130_inv.mag & ```
+```
+magic -T [tech file] [.mag file]
+tech file = sky130A.tech .mag file = sky130_inv.mag
+```
 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB12.png"> </p>
+ 
+ #### Layout of the CMOS Inveter in magic
+ 
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB14.png"> </p>
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB15.png"> </p>
+
+- Refer this [to build and inverter from scratch(workshop reference)](https://github.com/nickson-jose/vsdstdcelldesign)
+- [Video reference](https://www.youtube.com/watch?v=RPppaGdjbj0)
+
+***Magic Commands:***
+- Left click = lower-left corner of box
+- Right click = upper-right corner of box
+- "z" = zoom in, "Z" = zoom out, "ctrl + z" = zoom into the box
+- Middle click on empty area will turn the box into empty (similar to erasing it)
+- "s" three times will select all geometries electrically connected to each other
+- `:box` = display parameters of selected box
+- `:grid` 0.5um 0.5um = turn on/off and set grid
+- `:snap user` = snap based on current grid
+- `:help snap` = display help for command
+- `:drc style drc(full)` = use all DRC when doing DRC checking
+- `:paint poly` = paint "poly" to current box
+- `:drc why` = show drc violation inside selected area (white dots are DRC violations )
+- `:erase poly` = delete poly inside the box
+- `:select area` = select all geometries inside the box
+- `:copy n 30` = copy selected geometries to North by 30 grid steps
+- `:move n 1` = move selected geometries to North by 1 step ("." to move more, "u" to undo)
+- `: select cell _08555_` = select a particular cell instance (e.g. cell _08555_ which can be searched in the DEF file)
+- `:cellname allcells` = list all cells in the layout
+- `:cellname exists sky130_fd_sc_hd__xor3_4` = check if a cell exists
+- `:drc why` = show DRC violation and also the DRC name which can be referenced from [Sky130 PDK Periphery Rules](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html#rules-periphery--page-root).
+
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB16.png"> </p>
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB17.png"> </p>
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB18.png"> </p>
