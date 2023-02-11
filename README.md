@@ -570,6 +570,8 @@ The slew timing parameters are listed below. Two inverters are connected in seri
 - It's unexpected to see negative propagation delay because the output occurs before the input. So in that case the designer must select the proper threshold value to create a positive delay. 
 - The typical delay slew low thresholds is 20% of Vdd and slew high threshold 80% of Vdd.
 
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th2.png">  </p>
 
 ### LAB DAY 2 : Steps to run and view of Floorplan and Placement using OpenLANE
 ---
