@@ -963,20 +963,30 @@ vim sky130_inv.spice
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB22.png"> </p>
  
-  <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB23.png"> </p>
+ * Add further spice commands as shown, 
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB25.png"> </p>
  
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB24.png"> </p>
  
-  <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB25.png"> </p>
- 
+ * Movie to direcotry as shown for viewing files as
+   ``` - pshort.lib
+       - nshort.lib ```
+       
+ * Viewing the lib file.
+ ```
+ vim pshort.lib
+ ```  
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB26.png"> </p>
  
+ * Keep scrolling in to find the device name which we are going to use in spice deck.
+ 
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB27.png"> </p>
+ 
+ * Here the p-mosfet model name is ``` pshort_model ```.
  
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB28.png"> </p>
