@@ -955,7 +955,7 @@ ext2spice
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB21.png"> </p>
  
-* seeing whats inside the spice file. 
+* Viewing the spice file. 
 
 ```
 vim sky130_inv.spice
@@ -988,9 +988,9 @@ vim sky130_inv.spice
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB30.png"> </p>
  
   <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB31.png"> </p>
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB31-1.png"> </p>
  
   <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB32.png"> </p>
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB32-1.png"> </p>
  
  
