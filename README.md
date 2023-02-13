@@ -800,7 +800,8 @@ As if needed further, transient analysis can be performed.
 - Si3N4 layer = Protection layer to prevent SiO2 layer to grow during oxidation (oxidation furnace)
 - SiO2 layer = Grows during oxidation (LOCOS = Local Oxidation of Silicon) and will act as isolation regions between transistors or active regions
 
-![Screenshot 2023-01-29 at 1 32 56 PM](https://user-images.githubusercontent.com/68071764/215313442-6c2b49bd-eba9-4e72-aa40-7d8e53bca2c7.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th11.png"> </p>
 
 3. <b>N-Well and P-Well Fabrication</b> = Fabricate the substrate needed by PMOS (N-Well) and NMOS (P-Well)
 
@@ -808,10 +809,12 @@ As if needed further, transient analysis can be performed.
 - Boron (3 valence electron) is used to form P-Well.
 - Mask 2 protects the N-Well (PMOS side) while P-Well (NMOS side) is being fabricated then Mask 3 while N-Well (PMOS side) is being fabricated
 
-![Screenshot 2023-01-29 at 1 34 20 PM](https://user-images.githubusercontent.com/68071764/215313474-496fde2e-2cf3-4f02-b3d8-d3ac6756a450.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th12.png"> </p>
 
 4. <b>Formation of Gate</b> = Gate fabrication affects threshold voltage. Factors affecting threshold voltage includes:
-![Screenshot 2023-01-29 at 1 35 01 PM](https://user-images.githubusercontent.com/68071764/215313511-ae895cc8-4879-4593-8faa-86051a63102f.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th13.png"> </p>
 
 Main parameters are:
 
@@ -819,7 +822,8 @@ Main parameters are:
 - Oxide capacitance = Controlled by oxide thickness (SiO2 layer is removed then rebuilt to the desire thickness)
 Mask 6 is for gate formation using polysilicon layer.
 
-![Screenshot 2023-01-29 at 1 37 20 PM](https://user-images.githubusercontent.com/68071764/215313608-3414ea76-0f89-40a8-8e6b-dd9646c1c522.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th14.png"> </p>
 
 5. <b>Lightly Doped Drain formation </b>= Before forming the source and drain layer, lightly doped impurity is added:
 
@@ -827,18 +831,21 @@ Mask 6 is for gate formation using polysilicon layer.
 - Mask 8 for P- implantation (lightly doped P-type) for PMOS.
 - Heavily doped impurity (N+ for NMOS and P+ for PMOS) is for the actual source and drain but the lightly doped impurity will help maintain spacing between the source and drain and prevent hot electron effect and short channel effect.
 
-![Screenshot 2023-01-29 at 1 38 33 PM](https://user-images.githubusercontent.com/68071764/215313687-74c4ec20-9915-4a27-9ee6-5e97089cc1bf.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th15.png"> </p>
 
 6. <b>Source and Drain Formation </b>= Mask 9 is for N+ implantation and Mask 10 for P+ implantation
 
 Channeling is when implantations dig too deep into substrate so add screen oxide before implantation
 The side-wall spacers maintains the N-/P- while implanting the N+/P+
 
-![Screenshot 2023-01-29 at 1 40 36 PM](https://user-images.githubusercontent.com/68071764/215313831-1e3d87ae-25ba-42b3-9741-ab193825026a.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th16.png"> </p>
 
 7. <b>Form Contacts and Interconnects </b>= TiN is for local interconnections and also for bringing contacts to the top. TiS2 is for the contact to the actual Drain-Gate-Source. Mask 11 is for etching off the TiN interconnect for the first layer contact.
 
-![Screenshot 2023-01-29 at 1 41 45 PM](https://user-images.githubusercontent.com/68071764/215313884-fed4b522-7c5b-49e5-bd32-00ee7665f920.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th17.png"> </p>
 
 8. <b>Higher Level Metal Formation</b> = We need to planarize first the layer via CMP before adding a metal interconnect. Aluminum contact is used to connect the lower contact to higher metal layer. Process is repeated until the contact reached the outermost layer.
 
@@ -847,7 +854,8 @@ The side-wall spacers maintains the N-/P- while implanting the N+/P+
 - Mask 14 is for second contact hole
 - Mask 15 is for second Aluminum contact layer. Mask 16 is for making contact to topmost layer.
 
-![Screenshot 2023-01-29 at 1 43 00 PM](https://user-images.githubusercontent.com/68071764/215313943-a93bcb30-6a40-47d3-9856-f1779097b8f8.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th18.png"> </p>
 
 
 ### Inverter Standard cell Layout & SPICE extraction
