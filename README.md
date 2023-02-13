@@ -791,6 +791,7 @@ plot out vs in
 As if needed further, transient analysis can be performed.
 
 ### CMOS Fabrication Process (16-Mask CMOS Process):
+---
 1. <b>Selecting a substrate</b> = Layer where the IC is fabricated. Most commonly used is P-type substrate
 2. <b>Creating active region for transistor</b> = Separate the transistor regions using SiO2 as isolation
 
