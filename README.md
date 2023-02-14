@@ -1052,7 +1052,6 @@ wget http://opencircuitdesign.com/open_pdks/archive/drc_test.tgz
 # DAY 4 Pre-layout timing analysis and importance of good clock tree
 ---
 
- 
 OpenLANE is a Place & Route flow and for placement of any cell may not require the entire 'mag file' information.  PnR tool does not need all informations from the .mag file like the logic part but only PnR boundaries, power/ground ports, and input/output ports.  Here 'lef files' come into picture. lef files has only these information. It protects our IP. So the next step is to extract the LEF file from Magic. But first, we need to follow guidelines of the PnR tool for the standard cells:
 
 - The input and output ports lies on the intersection of the horizontal and vertical tracks (ensure the routes can reach that ports).
@@ -1133,9 +1132,106 @@ cp sky130_vsdinv.lef /home/pssh23/Desktop/work/tools/openlane_working_dir/openla
 We need to have a library which has our cell defination for synthesis so that abc can map it. (inside vsdstdcelldesign -> libs). We have different library file for different PVT and of different speed. 
 
 * We will require fast slow and typical for STA analysis. 
+* Let's have a look into one of it. by using ```less [filename]``` or ```vim [filename]```.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB8.png"> </p>
 
 * Now our objective is that the tool should map the vsd cell during the synthesis flow. We will copy the library (from vsdstdcelldesign -> libs) files to src folder under picorv32a.
 
 ```
 cp sky130_fd_sc_hd__*  /home/pssh23/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
 ```
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB9.png"> </p>
+ 
+ * Then ```less config.tcl``` under the picorv32a for viewing and editing.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB10.png"> </p>
+ 
+ * Update the ```config.tcl``` as follows
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB11.png"> </p>
+ 
+ * After editing the config file run the full flow from start. Open fresh terminal opened and go through commands as: 
+
+```
+1. cd work/tools/openlane_working_dir/openlane
+2. docker
+3.  ./flow.tcl -interactive
+4. package require openlane 0.9
+5. prep -design picorv32a -tag [file_name (29-01_16-28)] -overwrite
+```
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB12.png"> </p>
+ 
+ * Now to add additional lefs, run following after finishing above prep step.
+
+```
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+```
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB13.png"> </p>
+ 
+ * Then run synthesis
+***Before it make sure delete the the old synthesis file to change the slack while changing the attributes/variables/switches****
+
+just for example some try outs as,
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB16.png"> </p>
+
+and then,
+```
+run_synthesis
+```
+
+While synthesis is runnning the terminal log moving, The our designed inverter is being used.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB14-1.png"> </p>
+ 
+***Notice the number of our designed inverter is being used. As well as the Chip Area.***
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB15.png"> </p>
+
+and Synthesis with modified/ add-on cell is done.
+
+## Delay Table:
+
+Problem:
+
+1. The capacitance or the load at the output node of each and every buffer in the complete clock tree is varying. 
+
+2. Also if the load is varying the input transition is varying.
+
+To avoid large skew between endpoints of a clock tree (happening due to signal arrives at different point in time):
+
+* After splitting the buffers. 
+
+* Buffers on the same level must have same capacitive load to ensure same timing delay or latency on the same level. It means that each buffer at the same level is having same load.
+
+* Buffers on the same level must also be the same size (different buffer sizes -> different W/L ratio -> different resistance -> different RC constant -> different delay). It means that the buffer at same level should be of same size. 
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/Theory/th2.png"> </p>
+
+Solution:
+
+Delay tables are the solution. Delay tables are 2D table. Delay of a component is characterised and summaries in a table.
+
+The timing model of each cell is recorded and is summarised in delay tables, which are part of the liberty file. The output slew is the main cause of delay. Capacitive load and input slew are also factors that affect output slew. The input slew has its own transition delay table and is a function of the previous buffer's output cap load and input slew.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/Theory/th3.png"> </p>
+ 
+ 
+
+
+
+
