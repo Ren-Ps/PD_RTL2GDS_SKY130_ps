@@ -1046,13 +1046,80 @@ wget http://opencircuitdesign.com/open_pdks/archive/drc_test.tgz
 * Upon extraction we find that there are .mag files and sky130A.tech file.
 
 * Now we can use magic to analyse the DRC rule and fix it if it's violated.
- Magic is invoked here by using, ``` magic -d XR ```
+* Magic may invoked here by, ``` magic -d XR ```
  
  
 # DAY 4 Pre-layout timing analysis and importance of good clock tree
 ---
 
+ 
+OpenLANE is a Place & Route flow and for placement of any cell may not require the entire 'mag file' information.  PnR tool does not need all informations from the .mag file like the logic part but only PnR boundaries, power/ground ports, and input/output ports.  Here 'lef files' come into picture. lef files has only these information. It protects our IP. So the next step is to extract the LEF file from Magic. But first, we need to follow guidelines of the PnR tool for the standard cells:
 
+- The input and output ports lies on the intersection of the horizontal and vertical tracks (ensure the routes can reach that ports).
+The width of the standard cell must be odd multiple of the tracks horizontal pitch and height must be odd multiples of tracks vertical pitch
+
+- The width of the standard cell must be odd multiple of the tracks horizontal pitch and height must be odd multiples of tracks vertical pitch.
+
+#### Extracting the LEF File:
+
+- Objective is to extract the lef file from .mag file and then try to plug the lef file to picorv32a. (that is instead of std cell we will use our own design)
+- To check these guidelines, we need to change the grid of Magic to match the actual metal tracks. The ``` pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tracks .info``` contains those metal informations.
+- Then do `` less tracks.info ``` for viewing.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB3.png"> </p>
+Horizontal track pitch = 0.46, verticle track pitch = 0.34, horizontal offset = 0.23, verticle offset = 0.17
+
+Tracks are used during routing. route can usually go above the track which are the layers. So, route are basically metal traces. PnR is automated process so we need to specify where do we want our route can go and this information is given by the tracks. Hence tracks are guide to route. Horizontal and verticle track pitches are mentioned. 
+
+***The ports (in and o/p) are in li1 metal layer. So we need to ensure these ports are on intersection or on li1 horizontal and verticle layer.***
+
+We now werify the guideline using magic. Pressing `g` make the grid visible. We will converge the grid with track value so that we can verify that our ports are actually on the intesection of horizontal and verticle li1 or not. So we try to take track file as reference and verify our file by getting grid information from tkcon window.
+
+From track file we can get x pitch, y pitch, verticle offset and horizontal offset. Let's make a grid according to the track information.
+
+command inside vsdstdcelldesign
+
+```
+magic -T sky130A.tech sky130_inv.mag &
+```
    
-   
-   
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB4.png"> </p>
+ 
+ We can observe horizontal and verticle crossing also we can observe the grid spacing is changed.
+ 
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB5-1.png"> </p>
+ 
+The width of the std cell in x direction (x pitch) should be odd multiple of the x pitch and height of the std cell y direction should be odd multiple of the y pitch. We find that the grids are as per our conditions.
+ 
+ **LEF file extraction**
+
+Ports doesn't mean anything to magic. Port definations are required while we want to extract the lef files. After extraction ports are converted in pins. The LEF file contains the cell size, port definitions, and properties which aid the placer and router tool. With that, the ports definition, port class, and port use must be set first. The instructions to set these definitions via Magic are on the [vsdstdcelldesign repo](https://github.com/nickson-jose/vsdstdcelldesign#create-port-definition).
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB6.png"> </p>
+
+Once we have defined the ports. Our next step is to define the purpose of the ports. For that we do port class and port use. Refer to [vsdstdcelldesign repo](https://github.com/nickson-jose/vsdstdcelldesign#create-port-definition).
+
+After setting the parameters we are ready to extract lef file from our mag. We give the cell a custom name - `save sky130_vsdinv.mag` (command in the tkcon tab).
+
+Then open our new inverter mag. 
+
+```
+magic -T sky130A.tech sky130_vsdinv.mag
+```
+
+Command to create the lef file (run in tkcon window)
+
+```
+lef write [name optional]
+```
+
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB7.png"> </p>
+ 
+ The lef file consists all the information.
+ 
+ 
