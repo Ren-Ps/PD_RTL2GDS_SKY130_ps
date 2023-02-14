@@ -1003,7 +1003,7 @@ vim sky130_inv.spice
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB30.png"> </p>
  
- ### TASK 3: calculating delays and fall time
+ ### TASK 3: Calculating Transition & Propogation Delays
  
  * Using mouse pointer click the points of interest. Its relevent x and y axis (i.e. here would be Voltage Vs Time) points will apear on terminal. Note those points to get timing analysis.
  
@@ -1011,10 +1011,22 @@ vim sky130_inv.spice
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB31-3.png"> </p>
  
  * Rise time (tr) is the time, during transition, when output switches from 20% to 80% of the maximum value. 
-   * Tr = 0.
- * Fall time (tf) is the time, during transition, when output switches from 80% to 20% of the maximum value.
+   * Tr = (2.19898e-09) - (2.15306e-09) = ***0.04592 nSec.***
  
+ * Fall time (tf) is the time, during transition, when output switches from 80% to 20% of the maximum value.
+   * Tf = (4.07653e-09) - (4.04082e-09) = ***0.03571 nSec.***
+
+
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB32-1.png"> </p>
  
- 
+ * The propagation delay high to low (tpHL) is the delay when output switches from high-to-low, after input switches from low-to-high. The delay is usually calculated at 50% point of input-output switching.
+   * Tphl = (2.18367e-09) - (2.18367e-09) = ***0.03061 nSec.***
+   * Tplh = (4.05278e-09) - (4.04969e-09) = ***0.00309 nSec. ***
+
+
+   
+   
+   
+   
+   
