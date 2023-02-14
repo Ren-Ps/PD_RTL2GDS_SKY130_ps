@@ -55,7 +55,7 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [LAB DAY 3 (PART 2)](#labb-day-3(part-2))
    - [LAB DAY 3 (PART 3)](#labb-day-3(part-3))
        - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
-* [DAY 4 Pre-layout timing analysis and importance of good clock tree](#day-4-pre---layout-timing-analysis-and-importance-of-good-clock-tree)
+* [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis--importance-of-good-clock-tree)
    - [Pre-layout timing analysis and importance of good clock tree](#pre-layout-timing-analysis-and-importance-of-good-clock-tree)
 * [DAY 5 - Final step for RTL2GDS]
        
@@ -943,6 +943,10 @@ tech file = sky130A.tech .mag file = sky130_inv.mag
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB19.png"> </p>
  
  Other verification steps are to check drain and source connections. The drains of both PMOS and NMOS must be connected to output port (here, Y) and the sources of both must be connected to power supply VDD (here, VPWR).
+
+Zooming-In to select unit box and get lambada values
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB23.png"> </p>
 
 <b>LEF or library exchange format:</b> A format that tells us about cell boundaries, VDD and GND lines. It contains no info about the logic of circuit and is also used to protect the IP.
 
