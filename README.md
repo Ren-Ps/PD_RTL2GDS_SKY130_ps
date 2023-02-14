@@ -1003,10 +1003,16 @@ vim sky130_inv.spice
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB30.png"> </p>
  
+ ### TASK 3: calculating delays and fall time
+ 
  * Using mouse pointer click the points of interest. Its relevent x and y axis (i.e. here would be Voltage Vs Time) points will apear on terminal. Note those points to get timing analysis.
  
   <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB31-2.png"> </p>
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB31-3.png"> </p>
+ 
+ * Rise time (tr) is the time, during transition, when output switches from 20% to 80% of the maximum value. 
+   * Tr = 0.
+ * Fall time (tf) is the time, during transition, when output switches from 80% to 20% of the maximum value.
  
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB32-1.png"> </p>
