@@ -944,7 +944,7 @@ tech file = sky130A.tech .mag file = sky130_inv.mag
  
  Other verification steps are to check drain and source connections. The drains of both PMOS and NMOS must be connected to output port (here, Y) and the sources of both must be connected to power supply VDD (here, VPWR).
 
-Zooming-In to select unit box and get lambada values
+Zooming-In to select unit box i.e. Root cell box and get micron & lambada values.
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB23.png"> </p>
 
