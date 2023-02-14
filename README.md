@@ -1120,6 +1120,22 @@ lef write [name optional]
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB7.png"> </p>
  
- The lef file consists all the information.
+Setting a layer as port create a PIN in the macro. Now our lef file is ready.
  
- 
+ **Introduction to timing libs and steps to include new cell in synthesis*
+
+* First copy the newly created lef to src under picorv32a:
+
+```
+cp sky130_vsdinv.lef /home/pssh23/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
+```
+
+We need to have a library which has our cell defination for synthesis so that abc can map it. (inside vsdstdcelldesign -> libs). We have different library file for different PVT and of different speed. 
+
+* We will require fast slow and typical for STA analysis. 
+
+* Now our objective is that the tool should map the vsd cell during the synthesis flow. We will copy the library (from vsdstdcelldesign -> libs) files to src folder under picorv32a.
+
+```
+cp sky130_fd_sc_hd__*  /home/pssh23/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
+```
