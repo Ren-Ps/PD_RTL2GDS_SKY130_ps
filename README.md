@@ -54,7 +54,7 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [Inception of Layout Â CMOS fabrication process (16 mask process)](#inception-of-layout-Â-CMOS-fabrication-process-(16-mask-process))
    - [LAB DAY 3 (PART 2)](#labb-day-3(part-2))
    - [LAB DAY 3 (PART 3)](#labb-day-3(part-3))
-       - [TASK 3: calculating delays and fall time](#task-3-calculating-delays-and-fall-time)
+       - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
 * [DAY 4 Pre-layout timing analysis and importance of good clock tree](#day-4-pre---layout-timing-analysis-and-importance-of-good-clock-tree)
    - [Pre-layout timing analysis and importance of good clock tree](#pre-layout-timing-analysis-and-importance-of-good-clock-tree)
 * [DAY 5 - Final step for RTL2GDS]
@@ -1004,6 +1004,7 @@ vim sky130_inv.spice
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB30.png"> </p>
  
  ### TASK 3: Calculating Transition & Propogation Delays
+ ---
  
  * Using mouse pointer click the points of interest. Its relevent x and y axis (i.e. here would be Voltage Vs Time) points will apear on terminal. Note those points to get timing analysis.
  
@@ -1022,7 +1023,7 @@ vim sky130_inv.spice
  
  * The propagation delay high to low (tpHL) is the delay when output switches from high-to-low, after input switches from low-to-high. The delay is usually calculated at 50% point of input-output switching.
    * Tphl = (2.18367e-09) - (2.18367e-09) = ***0.03061 nSec.***
-   * Tplh = (4.05278e-09) - (4.04969e-09) = ***0.00309 nSec. ***
+   * Tplh = (4.05278e-09) - (4.04969e-09) = ***0.00309 nSec.***
 
 
    
