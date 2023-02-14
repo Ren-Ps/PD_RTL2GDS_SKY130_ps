@@ -971,8 +971,8 @@ vim sky130_inv.spice
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB24.png"> </p>
  
  * Movie to direcotry as shown for viewing files as
-   ``` - pshort.lib
-       - nshort.lib ```
+   ``` - pshort.lib ```
+   ``` - nshort.lib ```
        
  * Viewing the lib file.
  ```
@@ -982,23 +982,31 @@ vim sky130_inv.spice
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB26.png"> </p>
  
  * Keep scrolling in to find the device name which we are going to use in spice deck.
- 
+  * Here the p-mos model name is ``` pshort_model ```.
+  * The same way, for n-mos  model name is ``` nshort_model ```.
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB27.png"> </p>
  
- * Here the p-mosfet model name is ``` pshort_model ```.
+ * Update the device model names in spice dec. Also as if needed include library path/.lib .
  
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB28.png"> </p>
  
+ * now on terminal runthe spice code
+ ```ngspice sky130_inv.spice```
+ 
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB29.png"> </p>
+ 
+ * On succesful i.e. error free simulation, a waveform of interest (which is mentioned in spice code) will apear as,
  
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB30.png"> </p>
  
+ * Using mouse pointer click the points of interest. Its relevent x and y axis (i.e. here would be Voltage Vs Time) points will apear on terminal. Note those points to get timing analysis.
+ 
   <p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB31-1.png"> </p>
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB31-2.png"> </p>
  
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB32-1.png"> </p>
