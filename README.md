@@ -1025,9 +1025,30 @@ vim sky130_inv.spice
    * Tphl = (2.18367e-09) - (2.18367e-09) = ***0.03061 nSec.***
    * Tplh = (4.05278e-09) - (4.04969e-09) = ***0.00309 nSec.***
 
+Next objective is to use this layout of inverter to create a lef file. Using this lef in openlane and plugging this cell we will make a custom cell. We will plug this in picorv32a.
 
-   
-   
+**DRC Rules & Analysis**
+
+* Technology files have all the technology related file. It consists all information about the layer, pattern, electrical connectivity, GDS generation rule, DRC rule, all other kind of rules, etc. Tnformation about the technology files can be found on [MAGIC_VLSI](http://opencircuitdesign.com/magic/index.html). 
+
+* cif - caltech intermediate formate - It is used interchangably with gds in magic tech file and documentation. For [DRC rules](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html#rules-periphery--page-root). The basic DRC rules are called edge based rules. 
+
+* Download the required DRC_test files using the command.
+
+```
+wget http://opencircuitdesign.com/open_pdks/archive/drc_test.tgz
+```
+
+* Upon extraction we find that there are .mag files and sky130A.tech file.
+
+* Now we can use magic to analyse the DRC rule and fix it if it's violated.
+ Magic is invoked here by using, ``` magic -d XR ```
+ 
+ 
+# DAY 4 Pre-layout timing analysis and importance of good clock tree
+---
+
+
    
    
    
