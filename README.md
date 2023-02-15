@@ -1289,18 +1289,19 @@ We can also see the sky130_vsdinv inside the layout also:
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB23.png"> </p>
  
- ### Timing Analysis (Pre-Layout STA using Ideal Clocks):
+### Timing Analysis (Pre-Layout STA using Ideal Clocks):
  
  First we take the ideal clock (clock tree is not yet build) and do the timing analysis with it. After that we will do with real clock.
 
-###  Pre-layout timing analysis (using ideal clock) 
+### Pre-layout timing analysis (using ideal clock) 
+
+Pre-layout STA will not yet include effects of clock buffers and net-delay due to RC parasitics (wire delay will be derived from PDK library wire model).
 
 * SETUP TIMING ANALYSIS.
 Specifications Clock frequency = 1GHz and period of 1ns.
 
 We have a launch flop and capture flop and in between we the the combinational logic. We have ideal clock network i.e., clock tree is not yet built. Hence we do not have any buffer in the clock path. This is a typical scenario for hold time and setup time calculation. We send the 1st riseing clock to the launch flop (t=0ns) and the 2nd rising to the capture flop (t=1ns).  
 
-Pre-layout STA will not yet include effects of clock buffers and net-delay due to RC parasitics (wire delay will be derived from PDK library wire model).
 ![image](https://user-images.githubusercontent.com/68071764/215751429-9278e8c1-2d82-4860-939d-f83f6eeda5af.png)
 
 Setup timing analysis equation is:
@@ -1318,10 +1319,9 @@ Setup timing analysis equation is:
 ### Pre-Layout STA with OpenSTA:
 
 In cts we try to change the netlist by making clock tree.
-
 The below files can be found in th extras folder in vsdstdcelldesign.
-
 Making the pre_sta.conf and save it in the openlane folder.
+
 ```
 set_cmd_units -time ns -capacitance pF -current mA -voltage V -resistance kOhm -distance um
 read_liberty -max /home/ativirani07/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib
