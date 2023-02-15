@@ -346,7 +346,7 @@ Number of cells = 14876
 
 ![NosCell](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day%201/LAB/LB21.png)
 
-###So: **flop ratio = count of d flip flops / number of cells = 1613/14876 = 0.108429 (10.8429 %)**
+So: **flop ratio = count of d flip flops / number of cells = 1613/14876 = 0.108429 (10.8429 %)**
 
 The synthesis statisttics report can bee seen above image. 
  
@@ -354,7 +354,7 @@ The synthesis statisttics report can bee seen above image.
 ## Day 2: Good Floorplan vs Bad Floorplan and Introduction to library cells
 ---
 ### Stages of Floorplanning:
----
+
 The placement of logical blocks, library cells, and pins on a silicon chip is known as chip floorplanning. It ensures that every module has been given the proper area and aspect ratio, that every pin of the module is connected to another module or the chip's edge, and that modules are placed so that they take up the least amount of space on a chip.
 
 1. **The height and width of core and die**
@@ -745,7 +745,7 @@ This `sky130A.tech`(technology), `merged.lef`(layout exchange format) and `picor
 ## Day 3 : Design library cell using Magic Layout and ngspice characterization
 ---
 ### Labs for CMOS inverter ngspice simulations
---- 
+
 In this we would be going into depth of one of the cells(inverter cell), we won't build it from scratch rather we would use the github to get the `.mag`(magic) files and from there we will be doing Post Layout simulation in ngspice and post characterizing our sample cell, we would be plugging this cell into a OpenLANE flow, into picorv32a core.
     
 **NOTE** - In I/O placement in floorplan on OpenLANE, configurations can be modified while in flight. On OpenLANE, for instance, use  `set ::env(FP_IO_MODE) 2` to make I/O mode not equidistant. On mode 2, the I/O pins won't be evenly spaced out(default of 1). View the `.def` layout for magic by launching floorplan once more with `run floorplan`. The configuration will only be available for the current session if it is changed on the fly; it will not be changed in `runs/config.tcl`, whereas `echo $::env(FP_IO_MODE)`is used to output the variable's most recent value.
