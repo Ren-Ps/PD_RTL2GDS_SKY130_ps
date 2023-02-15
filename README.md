@@ -1276,7 +1276,7 @@ Then check the file which is created. Go to the placements folder under reults a
 The command is:
 
 ```
-magic -T /home/ee22mtech14005/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def
+magic -T /home/pssh23/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def
 ```
 
 We can see our sky130_vsdinv file in the merged.lef file inside the tmp folder. The macro is present.
@@ -1302,7 +1302,8 @@ Specifications Clock frequency = 1GHz and period of 1ns.
 
 We have a launch flop and capture flop and in between we the the combinational logic. We have ideal clock network i.e., clock tree is not yet built. Hence we do not have any buffer in the clock path. This is a typical scenario for hold time and setup time calculation. We send the 1st riseing clock to the launch flop (t=0ns) and the 2nd rising to the capture flop (t=1ns).  
 
-![image](https://user-images.githubusercontent.com/68071764/215751429-9278e8c1-2d82-4860-939d-f83f6eeda5af.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/Theory/th4.png"> </p>
 
 Setup timing analysis equation is:
 ```
@@ -1312,7 +1313,8 @@ Setup timing analysis equation is:
 - T = Time period, also called the required time
 - S = Setup time. As demonstrated below, signal must settle on the middle (input of Mux 2) before clock tansists to 1 so the delay due to Mux 1 must be considered, this delay is the setup time.
 
-![image](https://user-images.githubusercontent.com/68071764/215751704-eb393729-f001-444f-8850-f779b68e249f.png)
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/Theory/th5.png"> </p>
 
 - SU = Setup uncertainty due to jitter which is temporary variation of clock period. This is due to non-idealities of PLL/clock source.
 
@@ -1324,11 +1326,11 @@ Making the pre_sta.conf and save it in the openlane folder.
 
 ```
 set_cmd_units -time ns -capacitance pF -current mA -voltage V -resistance kOhm -distance um
-read_liberty -max /home/ativirani07/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib
-read_liberty -min /home/ativirani07/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib
-read_verilog /home/ativirani07/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/30-01_04-42/results/synthesis/picorv32a.synthesis.v
+read_liberty -max /home/pssh23/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib
+read_liberty -min /home/pssh23/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib
+read_verilog /home/pssh23/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/30-01_04-42/results/synthesis/picorv32a.synthesis.v
 link_design picorv32a
-read_sdc /home/ativirani07/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/picorv32a.sdc
+read_sdc /home/pssh23/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/picorv32a.sdc
 report_checks -path_delay min_max -fields {slew trans net cap input_pin}
 ```
 
@@ -1400,4 +1402,112 @@ replace_cell _[net to be replaced]_ [new net name]
 
 ```
  
+## Clock Tree Synthesis
+
+There are three parameters that we need to consider when building a clock tree:
+
+* Clock Skew = In order to have minimum skew between clock endpoints, clock tree is used. This results in equal wirelength (thus equal latency/delay) for every path of the clock.
+* Clock Slew = Due to wire resistance and capacitance of the clock nets, there will be slew in signal at the clock endpoint where signal is not the same with the original input clock signal anymore. This can be solved by clock buffers. Clock buffer differs in regular cell buffers since clock buffers has equal rise and fall time.
+* Crosstalk = Clock shielding prevents crosstalk to nearby nets by breaking the coupling capacitance between the victim (clock net) and aggresor (nets near the clock net), the shield might be connected to VDD or ground since those will not switch. Shileding can also be done on critical data nets.
+
+
+### LAB DAY 4 (PART 4)
+ 
+ In the terminal in which we run the run_cts command there only go to openroad. Type the following command in the terminal.
+```
+openroad
+```
+
+This will open the open road. Our objective to do the analysis of the entire circut where clock tree has been build now. Now we will open OpenSTA here. For timing alnalysis.
+
+1. We first create a db `
+2. db is create using lef and def file. In our analysis we use these db. (It is a one time process. Whenever lef changes we have to change the db)
+3. To create a db
+
+// first read lef (it is inside the tmp folder (merged.lef)
+read_lef [location] {my case = read_lef /openLANE_flow/designs/picorv32a/runs/30-01_04-42/tmp/merged.lef}
+
+// secondly read def (it is present inside cts folder present under the results folder/cts)
+read_def [location] {my case = /openLANE_flow/designs/picorv32a/runs/30-01_04-42/results/cts/picorv32a.cts.def}
+
+// creating db
+write_db [name] // my case = pico_cts.db (created under the openlane folder)
+
+// reading db 
+read_db [name] // my case = pico_cts.db
+
+//  reading verilog (it is present inside cts folder present under the results/synthesis/picorv32a.synthesis_cts.v)
+read_verilog [location] // {my case = /openLANE_flow/designs/picorv32a/runs/30-01_04-42/results/synthesis/picorv32a.synthesis_cts.v}
+
+// reading library (max)
+read_liberty -max $::env(LIB_FASTEST)
+
+// reading library (min)
+read_liberty -min $::env(LIB_SLOWEST)
+
+// reading sdc
+read_sdc [location] {my case = /openLANE/designs/picorv32a/src/my_base.sdc}
+
+// now the clock has been generated 
+set_propagated_clock [all_clocks]
+
+// report
+report_checks -path_delay min_max -format full_clock_expanded -digits 4
+
+All the loaction should be after /openLANE_flow/.....
+```
+run_cts
+```
+The CTS run adds clock buffers in therefore buffer delays come into picture and our analysis from here on deals with real clocks. Setup and hold time slacks may now be analysed in the post-CTS STA anlysis in OpenROAD within the openLANE flow:
+```
+openroad
+write_db pico_cts.db
+read_db pico_cts.db
+read_verilog /openLANE_flow/designs/picorv32a/runs/30-01_04-42/results/synthesis/picorv32a.synthesis_cts.v
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+link_design picorv32a
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+set_propagated_clock (all_clocks)
+report_checks -path_delay min_max -format full_clock_expanded -digits 4
+```
+
+## DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA
+ 
+ ### Maze Routing:
+ One simple routing algorithm is Maze Routing or Lee's routing:
+
+The shortest path is one that follows a steady increment of one (1-to-9 on the example below). There might be multiple path like this but the best path that the tool will choose is one with less bends. The route should not be diagonal and must not overlap an obstruction such as macros.
+This algorithm however has high run time and consume a lot of memory thus more optimized routing algorithm is preferred (but the principles stays the same where route with shortest path and less bends is preferred)
+ 
+ ![Screenshot 2023-01-30 at 6 27 15 PM](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th1.png)
+
+ ### DRC Cleaning:
+DRC cleaning is the next step after routing. DRC cleaning is done to ensure the routes can be fabricated and printed in silicon faithfully. Most DRC is due to the constraints of the photolitographic machine for chip fabrication where the wavelength of light used is limited. There are thousands of DRC and some DRC are:
+
+- Minimum wire width
+- Minimum wire pitch (center to center spacing)
+- Minimum wire spacing (edge to edge spacing)
+- Signal short = this can be solved my moving the route to next layer using vias. This results in more DRC (Via width, Via Spacing, etc.). Higher metal layer must be wider than lower metal layer and this is another DRC.
+ 
+ ### Power Distribution Network:
+ 
+This is just a review on PDN. The power and ground rails has a pitch of 2.72um thus the reason why the customized inverter cell has a height of 2.72 or else the power and ground rails will not be able to power up the cell. Looking at the LEF file runs/[date]/tmp/merged.nom.lef, you will notice that all cells are of height 2.72um and only width differs.
+
+As shown below, power and ground flows from power/ground pads -> power/ground ring-> power/ground straps -> power/ground rails.
+ 
+ ![image](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th2.png)
+
+ ### Routing Stage:
+ 
+ Power Distribution Network generation
+ 
+Unlike the general ASIC flow, Power Distribution Network generation is not a part of floorplan run in OpenLANE. PDN must be generated after CTS and post-CTS STA analysis:
+ 
+ gen_pdn
+ 
+ 'run_routing' 
+ 
+ A DEF file will be formed runs/[date]/results/routing/picorv32.def Open the DEF file output of routing stage in Magic.
+ 
+ Similar to what we did when we plugged in the custom inverter cell, look for sky130_myinverter at the DEF file then search that cell instance in magic
 
