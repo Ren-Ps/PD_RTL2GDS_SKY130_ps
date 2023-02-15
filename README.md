@@ -1509,5 +1509,12 @@ Unlike the general ASIC flow, Power Distribution Network generation is not a par
  
  A DEF file will be formed runs/[date]/results/routing/picorv32.def Open the DEF file output of routing stage in Magic.
  
- Similar to what we did when we plugged in the custom inverter cell, look for sky130_myinverter at the DEF file then search that cell instance in magic
+ Similar to what we did when we plugged in the custom inverter cell, look for sky130_myinverter at the DEF file then search that cell instance in magic.
+ 
+ Done!
 
+# REFERENCES
+
+[Kunal Ghosh - Co-founder of VSD](https://www.udemy.com/user/anagha/)
+[Nickson Jose - Workshop Instructor](https://www.udemy.com/user/nickson-jose/)
+[OpenLANE-Sky130-Physical-Design-Workshop](https://github.com/AngeloJacobo/OpenLANE-Sky130-Physical-Design-Workshop#floorplan-stage)
