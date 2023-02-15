@@ -50,14 +50,23 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [Labs for CMOS inverter ngspice simulations](#labs-for-cmos-inverter-ngspice-simulations)
        - [Creating SPICE deck](#creating-spice-deck)
        - [Analysing the inverter](#analysing-the-inverter)
-       - [LAB SETUP](#lab-setup)
-   - [Inception of Layout Â CMOS fabrication process (16 mask process)](#inception-of-layout-Â-CMOS-fabrication-process-(16-mask-process))
+   - [CMOS Fabrication Process (16-Mask CMOS Process)](#cmos-fabrication-process-16-mask-cmos-process)
+   - [Inverter Standard cell Layout & SPICE extraction]
    - [LAB DAY 3 (PART 2)](#labb-day-3(part-2))
    - [LAB DAY 3 (PART 3)](#labb-day-3(part-3))
        - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
 * [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis--importance-of-good-clock-tree)
-   - [Pre-layout timing analysis and importance of good clock tree](#pre-layout-timing-analysis-and-importance-of-good-clock-tree)
-* [DAY 5 - Final step for RTL2GDS]
+   - [Extracting the LEF File](#extracting-the-lef-file)
+   - [Delay Table](#delay_table)
+   - [(Fix Negative Slack)](#fix-negative-slack)
+   - [Timing Analysis (Pre-Layout STA using Ideal Clocks)](#timing-analysis-pre-layout-sta-using-ideal-clocks)
+   - [Pre-Layout STA with OpenSTA]
+   - [Clock Tree Synthesis](#clock-tree-synthesis)
+* [DAY 5 - DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonRoute-and-openSTA)
+   - [Maze Routing]
+   - [DRC Cleaning]
+   - [Power Distribution Network]
+* [References](#referances)
        
        
 # About RTL to GDSII Flow
@@ -1503,10 +1512,35 @@ As shown below, power and ground flows from power/ground pads -> power/ground ri
  
 Unlike the general ASIC flow, Power Distribution Network generation is not a part of floorplan run in OpenLANE. PDN must be generated after CTS and post-CTS STA analysis:
  
- gen_pdn
+## LAB DAY 5
+
+* The command to load the previous files (basically whatever you have done).
+
+```
+1. cd work/tools/openlane_working_dir/openlane
+2. docker
+3.  ./flow.tcl -interactive
+4. package require openlane 0.9
+5. prep -design picorv32a -tag 29-01_18-06
+// if we include new configuration i.e., edit the config file then we have to do overwrite
+prep -design picorv32a -tag 29-01_18-06 -overwrite 
+
+// to check the last def file created i.e., last def
+echo $::env(CURRENT_DEF)
+```
+
+* Now we have to do power distribution network (it has to be done in the floorplan itself but as we missed it we will run it now. The creation of power and ground lines along with side line (std_cell rails)is done iby the pdn. 
+
+```
+gen_pdn
+```
  
- 'run_routing' 
- 
+The tmp folder consists of all the def files of each stage.
+
+pdn.def consists the cts,def plus it's own values.
+
+Finally ```run_routing```
+
  A DEF file will be formed runs/[date]/results/routing/picorv32.def Open the DEF file output of routing stage in Magic.
  
  Similar to what we did when we plugged in the custom inverter cell, look for sky130_myinverter at the DEF file then search that cell instance in magic.
