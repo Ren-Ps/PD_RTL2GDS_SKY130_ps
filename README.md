@@ -1180,12 +1180,6 @@ add_lefs -src $lefs
  * Then run synthesis
 ***Before it make sure delete the the old synthesis file to change the slack while changing the attributes/variables/switches****
 
-just for example some try outs as,
-
-<p align="center">
- <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB16.png"> </p>
-
-and then,
 ```
 run_synthesis
 ```
@@ -1230,8 +1224,180 @@ The timing model of each cell is recorded and is summarised in delay tables, whi
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/Theory/th3.png"> </p>
  
+ Notice how skew is zero since delay for both clock path is x9'+y15.
+
+### Fix Negative Slack:
+
+1. Let us change some variables to minimize the negative slack. We will now change the variables "on the flight". Use echo $::env(SYNTH_STRATEGY) to view the current value of the variables before changing it:
+
+```
+% echo $::env(SYNTH_STRATEGY)
+AREA 0
+% set ::env(SYNTH_STRATEGY) "DELAY 0"
+% echo $::env(SYNTH_BUFFERING)
+1
+% echo $::env(SYNTH_SIZING)
+0
+% set ::env(SYNTH_SIZING) 1
+% echo $::env(SYNTH_DRIVING_CELL)
+sky130_fd_sc_hd__inv_2
+```
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB16.png"> </p>
+
+With SYNTH_STRATEGY of Delay 0, the tool will focus more on optimizing/minimizing the delay, index can be 0 to 3 where 3 is the most optimized for timing (sacrificing more area). SYNTH_BUFFERING of 1 ensures cell buffer will be used on high fanout cells to reduce delay due to high capacitance load. SYNTH_SIZING of 1 will enable cell sizing where cell will be upsize or downsized as needed to meet timing. SYNTH_DRIVING_CELL is the cell used to drive the input ports and is vital for cells with a lot of fan-outs since it needs higher drive strength (larger driving cell needed).
+
+2. Below is the log report for slack.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB15-1.png"> </p>
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB15-2.png"> </p>
+
+3. Next run floor plan by executing the following codes one by one:
+
+```
+init_floorplan
+place_io
+global_placement_or
+detailed_placement
+tap_decap_or
+detailed_placement
+gen_pdn
+run_cts
+```
+
+Then check the file which is created. Go to the placements folder under reults and then invoke the magic tool and load the def file. 
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB17-1.png"> </p>
+
+The command is:
+
+```
+magic -T /home/ee22mtech14005/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def
+```
+
+We can see our sky130_vsdinv file in the merged.lef file inside the tmp folder. The macro is present.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB22.png"> </p>
  
+We can also see the sky130_vsdinv inside the layout also:
+ 
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB23.png"> </p>
+ 
+ ### Timing Analysis (Pre-Layout STA using Ideal Clocks):
+ 
+ First we take the ideal clock (clock tree is not yet build) and do the timing analysis with it. After that we will do with real clock.
+
+###  Pre-layout timing analysis (using ideal clock) 
+
+* SETUP TIMING ANALYSIS.
+Specifications Clock frequency = 1GHz and period of 1ns.
+
+We have a launch flop and capture flop and in between we the the combinational logic. We have ideal clock network i.e., clock tree is not yet built. Hence we do not have any buffer in the clock path. This is a typical scenario for hold time and setup time calculation. We send the 1st riseing clock to the launch flop (t=0ns) and the 2nd rising to the capture flop (t=1ns).  
+
+Pre-layout STA will not yet include effects of clock buffers and net-delay due to RC parasitics (wire delay will be derived from PDK library wire model).
+![image](https://user-images.githubusercontent.com/68071764/215751429-9278e8c1-2d82-4860-939d-f83f6eeda5af.png)
+
+Setup timing analysis equation is:
+```
+Θ < T - S - SU
+```
+- Θ = Combinational delay which includes clk to Q delay of launch flop and internal propagation delay of all gates between launch and capture flop
+- T = Time period, also called the required time
+- S = Setup time. As demonstrated below, signal must settle on the middle (input of Mux 2) before clock tansists to 1 so the delay due to Mux 1 must be considered, this delay is the setup time.
+
+![image](https://user-images.githubusercontent.com/68071764/215751704-eb393729-f001-444f-8850-f779b68e249f.png)
+
+- SU = Setup uncertainty due to jitter which is temporary variation of clock period. This is due to non-idealities of PLL/clock source.
+
+### Pre-Layout STA with OpenSTA:
+
+In cts we try to change the netlist by making clock tree.
+
+The below files can be found in th extras folder in vsdstdcelldesign.
+
+Making the pre_sta.conf and save it in the openlane folder.
+```
+set_cmd_units -time ns -capacitance pF -current mA -voltage V -resistance kOhm -distance um
+read_liberty -max /home/ativirani07/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib
+read_liberty -min /home/ativirani07/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib
+read_verilog /home/ativirani07/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/30-01_04-42/results/synthesis/picorv32a.synthesis.v
+link_design picorv32a
+read_sdc /home/ativirani07/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/picorv32a.sdc
+report_checks -path_delay min_max -fields {slew trans net cap input_pin}
+```
+
+After cts new .v files start getting created.
+
+Creating picorv32a.sdc and save this file in the src folder of picorv32a folder.
+```
+set ::env(CLOCK_PORT) clk
+set ::env(CLOCK_PERIOD) 12.000
+set ::env(SYNTH_DRIVING_CELL) sky130_fd_sc_hd__inv_8
+set ::env(SYNTH_DRIVING_CELL_PIN) Y
+set ::env(SYNTH_CAP_LOAD) 17.65
+create_clock [get_ports $::env(CLOCK_PORT)]  -name $::env(CLOCK_PORT)  -period $::env(CLOCK_PERIOD)
+set IO_PCT  0.2
+set input_delay_value [expr $::env(CLOCK_PERIOD) * $IO_PCT]
+set output_delay_value [expr $::env(CLOCK_PERIOD) * $IO_PCT]
+puts "\[INFO\]: Setting output delay to: $output_delay_value"
+puts "\[INFO\]: Setting input delay to: $input_delay_value"
 
 
+set clk_indx [lsearch [all_inputs] [get_port $::env(CLOCK_PORT)]]
+#set rst_indx [lsearch [all_inputs] [get_port resetn]]
+set all_inputs_wo_clk [lreplace [all_inputs] $clk_indx $clk_indx]
+#set all_inputs_wo_clk_rst [lreplace $all_inputs_wo_clk $rst_indx $rst_indx]
+set all_inputs_wo_clk_rst $all_inputs_wo_clk
 
+
+# correct resetn
+set_input_delay $input_delay_value  -clock [get_clocks $::env(CLOCK_PORT)] $all_inputs_wo_clk_rst
+#set_input_delay 0.0 -clock [get_clocks $::env(CLOCK_PORT)] {resetn}
+set_output_delay $output_delay_value  -clock [get_clocks $::env(CLOCK_PORT)] [all_outputs]
+
+# TODO set this as parameter
+set_driving_cell -lib_cell $::env(SYNTH_DRIVING_CELL) -pin $::env(SYNTH_DRIVING_CELL_PIN) [all_inputs]
+set cap_load [expr $::env(SYNTH_CAP_LOAD) / 1000.0]
+puts "\[INFO\]: Setting load to: $cap_load"
+set_load  $cap_load [all_outputs]
+```
+
+This is replicating the same results as we had after run synthesis stage. pre_sta.conf will be the fill on which we will be doing our STA analysis.
+
+To perform pre STA run the command below by opening the terminal in openlane folder which is inside the openlane_working_dir.
+```
+sta [file_name] // (our case = pre_sta.conf)
+```
+
+As we haven't done CTS hold time doesn't hold any significance. The delay of any cell is function of input slew and output load. We can play with these data and can get slack as positive. So we can also play with some of some of these parameters.
+
+Command to check what a particular cell is driving:
+```
+report_net -connections _[cell number/net number]_
+
+```
+To replace the buffer (from buf 1 to buf 4) we use the following command.
+
+replace_cell _23732_ sky130_fd_sc_hd__buf_4
+
+report check will report the worst path, by default it is the max setup slack
+```
+report_checks -field {net cap slew input_pins} -digits 4
+```
+Upsizing the buffer will change the cell. We can replace cell to bring donw the slack. It will slightly increase the area,
+```
+1. First find the cell you want to replace. 
+2. Then echo its net details by the following command 
+report_net -connections _[cell number/net number]_ 
+3. Then use the replace command to upsize it.
+replace_cell _[net to be replaced]_ [new net name]
+
+```
+ 
 
