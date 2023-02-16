@@ -19,7 +19,7 @@ This repo contents learning info and steps followed during the workshop of Advan
        - [About OpenLANE](#about-openlane)
     - [Getting familier to open-source EDA tools](#getting-familier-to-open-source-eda-tools)
        - [Contents of the OpenLANE Directory](#contents-of-the-openlane-directory)
-    - [LAB Day 1](#lab-day-1)
+    - [in Day 1]
        - [TASK 1: Finding the d flip flop ratio](#TASK-1-finding-the-d-flip-flop-ratio)
 * [Day 2 - Good floorplan vs bad floorplan and introduction to library cells](#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells
 )
@@ -46,7 +46,8 @@ This repo contents learning info and steps followed during the workshop of Advan
     - [Timing Characterization](#timing-characterization)
       - [Propogation Delay](#propogation-delay)
       - [Transition Time](#transition-time)
-    - [LAB Day 2](#lab-day-2-)
+    - [ Steps to run and view of Floorplan and Placement using OpenLANE](#steps-to-run-and-view-of-floorplan-and-placement-using-openlane)
+    - [in Day 2]
        - [TASK 2: Calculating Die Area](#task-2-calculating-die-area)
 * [Day 3 - Design library cell using Magic Layout and ngspice characterization](#day-3---design-library-cell-using-magic-layout-and-ngspice-characterization)
    - [Labs for CMOS inverter ngspice simulations](#labs-for-cmos-inverter-ngspice-simulations)
@@ -54,10 +55,10 @@ This repo contents learning info and steps followed during the workshop of Advan
       - [Analysing the inverter](#analysing-the-inverter)
    - [CMOS Fabrication Process (16-Mask CMOS Process)](#cmos-fabrication-process-16-mask-cmos-process)
    - [Inverter Standard cell Layout & SPICE extraction](#Inverter-standard-cell-layout--spice-extraction)
-      - [LAB DAY 3](#lab-day-3)
    - [Layout of the CMOS Inverter in Magic](#layout-of-the-cmos-inverter-in-magic)
       - [Magic Commands:](#magic-commands-)
       - [LEF](#lef)
+      - [in Day 3]
         - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
       - [DRC Rules & Analysis](#drc-rule--analysis)
 * [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
@@ -67,14 +68,12 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [Timing Analysis (Pre-Layout STA using Ideal Clocks)](#timing-analysis-pre-layout-sta-using-ideal-clocks)
    - [Pre-Layout STA with OpenSTA](#pre-layout-sta-with-opensta)
    - [Clock Tree Synthesis](#clock-tree-synthesis)
-   - [LAB DAY 4](#lab-day-4)
 * [DAY 5 - DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonRoute-and-openSTA)
    - [Maze Routing](#maze-routing)
    - [DRC Cleaning](#drc-cleaning)
    - [Power Distribution Network](#power-distribution-network)
    - [Routing Stage](#routing-stage)
      - [TritonRoute](#tritonroute)
-   - [LAB DAY 5](#lab-day-5)
 * [References](#referances)
        
        
@@ -265,8 +264,7 @@ The following content is specific to the workshop. There are lot of other files 
 * config.tcl
 * Default value (already set in OpenLane)
 
-## LAB DAY 1:
-
+## 
 
 **Step 1:** Starting OpenLane
 * Go to openlane folder.
@@ -592,7 +590,7 @@ The slew timing parameters are listed below. Two inverters are connected in seri
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th2.png">  </p>
 
 
-## LAB DAY 2 : Steps to run and view of Floorplan and Placement using OpenLANE
+## Steps to run and view of Floorplan and Placement using OpenLANE
 
 1. **Set configuration variables** 
 - The configuration variables or switches must be set up before to starting the floorplan stage.. 
@@ -879,8 +877,6 @@ The side-wall spacers maintains the N-/P- while implanting the N+/P+
 
 ## Inverter Standard cell Layout & SPICE extraction
 
-### LAB DAY 3
-
 - The Magic layout of a CMOS inverter will be used so as to intergate the inverter with the picorv32a design. To do this, inverter magic file is sourced from `vsdstdcelldesign` by cloning it within the `openlane_working_dir/openlane` directory as follows:
 ```
 git clone https://github.com/nickson-jose/vsdstdcelldesign
@@ -1032,7 +1028,6 @@ vim sky130_inv.spice
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB30.png"> </p>
  
  ### TASK 3: Calculating Transition & Propogation Delays
- ---
  
  * Using mouse pointer click the points of interest. Its relevent x and y axis (i.e. here would be Voltage Vs Time) points will apear on terminal. Note those points to get timing analysis.
  
@@ -1434,9 +1429,9 @@ There are three parameters that we need to consider when building a clock tree:
 * Clock Slew = Due to wire resistance and capacitance of the clock nets, there will be slew in signal at the clock endpoint where signal is not the same with the original input clock signal anymore. This can be solved by clock buffers. Clock buffer differs in regular cell buffers since clock buffers has equal rise and fall time.
 * Crosstalk = Clock shielding prevents crosstalk to nearby nets by breaking the coupling capacitance between the victim (clock net) and aggresor (nets near the clock net), the shield might be connected to VDD or ground since those will not switch. Shileding can also be done on critical data nets.
 
+###
+---
 
-## LAB DAY 4
- 
  In the terminal in which we run the run_cts command there only go to openroad. Type the following command in the terminal.
 ```
 openroad
@@ -1577,8 +1572,6 @@ Two guides are connected if:
  
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th7.png"> </p>
- 
-## LAB DAY 5
 
 Power Distribution Network generation
  
