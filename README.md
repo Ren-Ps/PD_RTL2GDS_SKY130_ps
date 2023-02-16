@@ -61,11 +61,12 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [Inverter Standard cell Layout & SPICE extraction](#Inverter-standard-cell-layout--spice-extraction)
       - [Layout of the CMOS Inverter in Magic](#layout-of-the-cmos-inverter-in-magic)
       - [Magic Commands:](#magic-commands-)
-   - [LAB DAY 3)](#labb-day-3(part-2))
+   - [LAB DAY 3](#labb-day-3)
        - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
    - [DRC Rules & Analysis](#drc-rule--analysis)
 * [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis--importance-of-good-clock-tree)
    - [Extracting the LEF File](#extracting-the-lef-file)
+   - [LAB DAY 4]
    - [Delay Table](#delay_table)
    - [(Fix Negative Slack)](#fix-negative-slack)
    - [Timing Analysis (Pre-Layout STA using Ideal Clocks)](#timing-analysis-pre-layout-sta-using-ideal-clocks)
@@ -931,7 +932,7 @@ tech file = sky130A.tech .mag file = sky130_inv.mag
 - Refer this [to build and inverter from scratch(workshop reference)](https://github.com/nickson-jose/vsdstdcelldesign)
 - [Video reference](https://www.youtube.com/watch?v=RPppaGdjbj0)
 
-***Magic Commands:***
+#### Magic Commands:
 - Left click = lower-left corner of box
 - Right click = upper-right corner of box
 - "z" = zoom in, "Z" = zoom out, "ctrl + z" = zoom into the box
@@ -966,7 +967,8 @@ Zooming-In to select unit box i.e. Root cell box and get micron & lambada values
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB23.png"> </p>
 
-<b>LEF or library exchange format:</b> A format that tells us about cell boundaries, VDD and GND lines. It contains no info about the logic of circuit and is also used to protect the IP.
+#### LEF or library exchange format:
+</b> A format that tells us about cell boundaries, VDD and GND lines. It contains no info about the logic of circuit and is also used to protect the IP.
 
 SPICE extraction: Within the Magic environment, following commands are used in tkcon to achieve .mag to .spice extraction:
 ``` 
@@ -1049,7 +1051,8 @@ vim sky130_inv.spice
 
 Next objective is to use this layout of inverter to create a lef file. Using this lef in openlane and plugging this cell we will make a custom cell. We will plug this in picorv32a.
 
-**DRC Rules & Analysis**
+#### DRC Rules & Analysis
+---
 
 * Technology files have all the technology related file. It consists all information about the layer, pattern, electrical connectivity, GDS generation rule, DRC rule, all other kind of rules, etc. Tnformation about the technology files can be found on [MAGIC_VLSI](http://opencircuitdesign.com/magic/index.html). 
 
