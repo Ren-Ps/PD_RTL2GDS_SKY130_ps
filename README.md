@@ -1626,3 +1626,7 @@ Finally ```run_routing```
 [Kunal Ghosh - Co-founder of VSD](https://www.udemy.com/user/anagha/)
 [Nickson Jose - Workshop Instructor](https://www.udemy.com/user/nickson-jose/)
 [OpenLANE-Sky130-Physical-Design-Workshop](https://github.com/AngeloJacobo/OpenLANE-Sky130-Physical-Design-Workshop#floorplan-stage)
+
+
+<!----- https://github.com/sreemoyee-chatterjee9/ADVANCED-PHYSICAL-DESIGN#day-2---good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells ----
+------https://github.com/Ativi/Advanced_Physical_Design-Using-OpenLANE_Sky130---------https://github.com/tanmaycv-09/ADVANCED-PHYSICAL-DESIGN-USING-OPENLANE-SKY130/blob/main/README.md#day-3-design-library-cell-using-magic-layout-and-ngspice-characterization-----------https://github.com/abhi-ranjan/Physical-Design-RTL2GDS-using-OpenLane-SKY130#lab-setup--------!>
