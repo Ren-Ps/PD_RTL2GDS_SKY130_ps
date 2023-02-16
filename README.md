@@ -59,12 +59,12 @@ This repo contents learning info and steps followed during the workshop of Advan
       - [Analysing the inverter](#analysing-the-inverter)
    - [CMOS Fabrication Process (16-Mask CMOS Process)](#cmos-fabrication-process-16-mask-cmos-process)
    - [Inverter Standard cell Layout & SPICE extraction](#Inverter-standard-cell-layout--spice-extraction)
-   - [LAB DAY 3](#lab-day-3)
-      - [Layout of the CMOS Inverter in Magic](#layout-of-the-cmos-inverter-in-magic)
+      - [LAB DAY 3](#lab-day-3)
+   - [Layout of the CMOS Inverter in Magic](#layout-of-the-cmos-inverter-in-magic)
       - [Magic Commands:](#magic-commands-)
       - [LEF](#lef)
-       - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
-   - [DRC Rules & Analysis](#drc-rule--analysis)
+        - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
+      - [DRC Rules & Analysis](#drc-rule--analysis)
 * [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
    - [Extracting the LEF File](#extracting-the-lef-file)
    - [Delay Table](#delay_table)
@@ -756,9 +756,9 @@ This `sky130A.tech`(technology), `merged.lef`(layout exchange format) and `picor
 ***placement done..!***
  
  
-## Day 3 : Design library cell using Magic Layout and ngspice characterization
----
-### Labs for CMOS inverter ngspice simulations
+# Day 3 : Design library cell using Magic Layout and ngspice characterization
+
+## Labs for CMOS inverter ngspice simulations
 
 In this we would be going into depth of one of the cells(inverter cell), we won't build it from scratch rather we would use the github to get the `.mag`(magic) files and from there we will be doing Post Layout simulation in ngspice and post characterizing our sample cell, we would be plugging this cell into a OpenLANE flow, into picorv32a core.
     
@@ -802,7 +802,7 @@ dc1
 plot out vs in 
 ```
 
-#### Analysing the inverter
+### Analysing the inverter
 
 * Switching threshold voltage (Vm) - The point where exact transition takes place i.e., Vin = Vout. At this point both the MOS are in saturation and we have a high leakage current (direct current flowing from vdd to ground). If the pull up network is strong the VTC moves towards right (Vm' > Vm) and if pull down network is strong then VTC shifts leftwards (Vm' < Vm).
 
@@ -813,7 +813,7 @@ plot out vs in
  
 As if needed further, transient analysis can be performed.
 
-### CMOS Fabrication Process (16-Mask CMOS Process):
+## CMOS Fabrication Process (16-Mask CMOS Process):
 ---
 1. <b>Selecting a substrate</b> = Layer where the IC is fabricated. Most commonly used is P-type substrate
 2. <b>Creating active region for transistor</b> = Separate the transistor regions using SiO2 as isolation
@@ -881,9 +881,9 @@ The side-wall spacers maintains the N-/P- while implanting the N+/P+
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th18.png"> </p>
 
 
-### Inverter Standard cell Layout & SPICE extraction
+## Inverter Standard cell Layout & SPICE extraction
 
-#### LAB DAY 3
+### LAB DAY 3
 
 - The Magic layout of a CMOS inverter will be used so as to intergate the inverter with the picorv32a design. To do this, inverter magic file is sourced from `vsdstdcelldesign` by cloning it within the `openlane_working_dir/openlane` directory as follows:
 ```
@@ -1059,8 +1059,7 @@ vim sky130_inv.spice
 
 Next objective is to use this layout of inverter to create a lef file. Using this lef in openlane and plugging this cell we will make a custom cell. We will plug this in picorv32a.
 
-#### DRC Rules & Analysis
----
+### DRC Rules & Analysis
 
 * Technology files have all the technology related file. It consists all information about the layer, pattern, electrical connectivity, GDS generation rule, DRC rule, all other kind of rules, etc. Tnformation about the technology files can be found on [MAGIC_VLSI](http://opencircuitdesign.com/magic/index.html). 
 
@@ -1088,7 +1087,7 @@ The width of the standard cell must be odd multiple of the tracks horizontal pit
 
 - The width of the standard cell must be odd multiple of the tracks horizontal pitch and height must be odd multiples of tracks vertical pitch.
 
-#### Extracting the LEF File:
+## Extracting the LEF File:
 
 - Objective is to extract the lef file from .mag file and then try to plug the lef file to picorv32a. (that is instead of std cell we will use our own design)
 - To check these guidelines, we need to change the grid of Magic to match the actual metal tracks. The ``` pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tracks .info``` contains those metal informations.
@@ -1225,7 +1224,7 @@ While synthesis is runnning the terminal log moving, The our designed inverter i
 
 and Synthesis with modified/ add-on cell is done.
 
-### Delay Table:
+## Delay Table:
 
 Problem:
 
@@ -1255,7 +1254,7 @@ The timing model of each cell is recorded and is summarised in delay tables, whi
  
  Notice how skew is zero since delay for both clock path is x9'+y15.
 
-### Fix Negative Slack:
+## Fix Negative Slack:
 
 1. Let us change some variables to minimize the negative slack. We will now change the variables "on the flight". Use echo $::env(SYNTH_STRATEGY) to view the current value of the variables before changing it:
 
@@ -1318,7 +1317,7 @@ We can also see the sky130_vsdinv inside the layout also:
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day4/LAB/LB23.png"> </p>
  
-### Timing Analysis (Pre-Layout STA using Ideal Clocks):
+## Timing Analysis (Pre-Layout STA using Ideal Clocks):
  
  First we take the ideal clock (clock tree is not yet build) and do the timing analysis with it. After that we will do with real clock.
 
@@ -1347,7 +1346,7 @@ Setup timing analysis equation is:
 
 - SU = Setup uncertainty due to jitter which is temporary variation of clock period. This is due to non-idealities of PLL/clock source.
 
-### Pre-Layout STA with OpenSTA:
+## Pre-Layout STA with OpenSTA:
 
 In cts we try to change the netlist by making clock tree.
 The below files can be found in th extras folder in vsdstdcelldesign.
@@ -1440,7 +1439,7 @@ There are three parameters that we need to consider when building a clock tree:
 * Crosstalk = Clock shielding prevents crosstalk to nearby nets by breaking the coupling capacitance between the victim (clock net) and aggresor (nets near the clock net), the shield might be connected to VDD or ground since those will not switch. Shileding can also be done on critical data nets.
 
 
-### LAB DAY 4
+## LAB DAY 4
  
  In the terminal in which we run the run_cts command there only go to openroad. Type the following command in the terminal.
 ```
@@ -1500,9 +1499,9 @@ set_propagated_clock (all_clocks)
 report_checks -path_delay min_max -format full_clock_expanded -digits 4
 ```
 
-## DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA
+# DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA
  
- ### Maze Routing:
+ ## Maze Routing:
  One simple routing algorithm is Maze Routing or Lee's routing:
 
 The shortest path is one that follows a steady increment of one (1-to-9 on the example below). There might be multiple path like this but the best path that the tool will choose is one with less bends. The route should not be diagonal and must not overlap an obstruction such as macros.
@@ -1511,7 +1510,7 @@ This algorithm however has high run time and consume a lot of memory thus more o
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th1.png"> </p>
 
- ### DRC Cleaning:
+ ## DRC Cleaning:
 DRC cleaning is the next step after routing. DRC cleaning is done to ensure the routes can be fabricated and printed in silicon faithfully. Most DRC is due to the constraints of the photolitographic machine for chip fabrication where the wavelength of light used is limited. There are thousands of DRC and some DRC are:
 
 - Minimum wire width
@@ -1519,7 +1518,7 @@ DRC cleaning is the next step after routing. DRC cleaning is done to ensure the 
 - Minimum wire spacing (edge to edge spacing)
 - Signal short = this can be solved my moving the route to next layer using vias. This results in more DRC (Via width, Via Spacing, etc.). Higher metal layer must be wider than lower metal layer and this is another DRC.
  
- ### Power Distribution Network:
+ ## Power Distribution Network:
  
 This is just a review on PDN. The power and ground rails has a pitch of 2.72um thus the reason why the customized inverter cell has a height of 2.72 or else the power and ground rails will not be able to power up the cell. Looking at the LEF file runs/[date]/tmp/merged.nom.lef, you will notice that all cells are of height 2.72um and only width differs.
 
@@ -1528,7 +1527,7 @@ As shown below, power and ground flows from power/ground pads -> power/ground ri
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th2.png"> </p>
 
- ### Routing Stage:
+ ## Routing Stage:
  
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th3.png"> </p>
