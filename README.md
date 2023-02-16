@@ -64,7 +64,7 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [LAB DAY 3](#labb-day-3)
        - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
    - [DRC Rules & Analysis](#drc-rule--analysis)
-* [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis--importance-of-good-clock-tree)
+* [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
    - [Extracting the LEF File](#extracting-the-lef-file)
    - [LAB DAY 4]
    - [Delay Table](#delay_table)
