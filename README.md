@@ -1506,7 +1506,8 @@ report_checks -path_delay min_max -format full_clock_expanded -digits 4
 The shortest path is one that follows a steady increment of one (1-to-9 on the example below). There might be multiple path like this but the best path that the tool will choose is one with less bends. The route should not be diagonal and must not overlap an obstruction such as macros.
 This algorithm however has high run time and consume a lot of memory thus more optimized routing algorithm is preferred (but the principles stays the same where route with shortest path and less bends is preferred)
  
- ![Screenshot 2023-01-30 at 6 27 15 PM](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th1.png)
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th1.png"> </p>
 
  ### DRC Cleaning:
 DRC cleaning is the next step after routing. DRC cleaning is done to ensure the routes can be fabricated and printed in silicon faithfully. Most DRC is due to the constraints of the photolitographic machine for chip fabrication where the wavelength of light used is limited. There are thousands of DRC and some DRC are:
@@ -1522,15 +1523,69 @@ This is just a review on PDN. The power and ground rails has a pitch of 2.72um t
 
 As shown below, power and ground flows from power/ground pads -> power/ground ring-> power/ground straps -> power/ground rails.
  
- ![image](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th2.png)
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th2.png"> </p>
 
  ### Routing Stage:
  
- Power Distribution Network generation
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th3.png"> </p>
+
+**TritonRoute**
  
-Unlike the general ASIC flow, Power Distribution Network generation is not a part of floorplan run in OpenLANE. PDN must be generated after CTS and post-CTS STA analysis:
+- Performs initial detail route.
+
+- Honors the preprocessed route guides (obtained after fast route) ,i.e. , attempts as much as possible to route within route guides.
+
+- Assumes route guides for each net satisfy inter-guide connectivity.
+
+- Works on proposed MILP-based panel routing scheme with intra-layer parallel and inter-layer sequential routing framework.
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th4.png"> </p>
+ 
+Preprocessed Route Guide:
+
+Requirements:
+
+Should have Unit Width.
+
+Should be in the preferred direction.
+
+**Inter-guide connectivity**
+
+Two guides are connected if:
+
+They are on the same metal layer with touching edges, or
+
+They are on neighboring metal layers with a nonzero vertically overlapped area.
+
+Each unconnected terminal (i.e., pin of a standard-cell instance should have its pin shape overlapped by a route guide.
+
+**Intra-Layer Parallel and Inter-Layer Sequential Panel Routing:**
+
+<p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th5.png"> </p>
+ 
+**Handling Connectivity:**
+
+Access Point (AP): An on-grid point on the metal layer of the route guide, and is used to connect to lower-layer segments, upper-layer segments, pins or IO ports.
+
+Access Point Cluster (APC): A union of all Aps derived from same lower-layer segment, upper-layer guide, a pin or an IO port.
+ 
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th6.png"> </p>
+ 
+ **Routing Topology Algorithum:**
+ 
+  <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th7.png"> </p>
  
 ## LAB DAY 5
+
+Power Distribution Network generation
+ 
+Unlike the general ASIC flow, Power Distribution Network generation is not a part of floorplan run in OpenLANE. PDN must be generated after CTS and post-CTS STA analysis:
 
 * The command to load the previous files (basically whatever you have done).
 
