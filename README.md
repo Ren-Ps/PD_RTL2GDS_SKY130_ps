@@ -66,12 +66,12 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [DRC Rules & Analysis](#drc-rule--analysis)
 * [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
    - [Extracting the LEF File](#extracting-the-lef-file)
-   - [LAB DAY 4]
    - [Delay Table](#delay_table)
    - [(Fix Negative Slack)](#fix-negative-slack)
    - [Timing Analysis (Pre-Layout STA using Ideal Clocks)](#timing-analysis-pre-layout-sta-using-ideal-clocks)
    - [Pre-Layout STA with OpenSTA]
    - [Clock Tree Synthesis](#clock-tree-synthesis)
+   - [LAB DAY 4](#lab-day-4)
 * [DAY 5 - DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonRoute-and-openSTA)
    - [Maze Routing]
    - [DRC Cleaning]
@@ -1432,7 +1432,7 @@ There are three parameters that we need to consider when building a clock tree:
 * Crosstalk = Clock shielding prevents crosstalk to nearby nets by breaking the coupling capacitance between the victim (clock net) and aggresor (nets near the clock net), the shield might be connected to VDD or ground since those will not switch. Shileding can also be done on critical data nets.
 
 
-### LAB DAY 4 (PART 4)
+### LAB DAY 4
  
  In the terminal in which we run the run_cts command there only go to openroad. Type the following command in the terminal.
 ```
