@@ -62,7 +62,7 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [LAB DAY 3](#lab-day-3)
       - [Layout of the CMOS Inverter in Magic](#layout-of-the-cmos-inverter-in-magic)
       - [Magic Commands:](#magic-commands-)
-      - [LEF](#lef
+      - [LEF](#lef)
        - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
    - [DRC Rules & Analysis](#drc-rule--analysis)
 * [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
@@ -70,13 +70,15 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [Delay Table](#delay_table)
    - [(Fix Negative Slack)](#fix-negative-slack)
    - [Timing Analysis (Pre-Layout STA using Ideal Clocks)](#timing-analysis-pre-layout-sta-using-ideal-clocks)
-   - [Pre-Layout STA with OpenSTA]
+   - [Pre-Layout STA with OpenSTA](#pre-layout-sta-with-opensta)
    - [Clock Tree Synthesis](#clock-tree-synthesis)
    - [LAB DAY 4](#lab-day-4)
 * [DAY 5 - DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonRoute-and-openSTA)
-   - [Maze Routing]
-   - [DRC Cleaning]
-   - [Power Distribution Network]
+   - [Maze Routing](#maze-routing)
+   - [DRC Cleaning](#drc-cleaning)
+   - [Power Distribution Network](#power-distribution-network)
+   - [Routing Stage](#routing-stage)
+     - [TritonRoute](#tritonroute)
    - [LAB DAY 5](#lab-day-5)
 * [References](#referances)
        
@@ -1223,7 +1225,7 @@ While synthesis is runnning the terminal log moving, The our designed inverter i
 
 and Synthesis with modified/ add-on cell is done.
 
-## Delay Table:
+### Delay Table:
 
 Problem:
 
@@ -1531,7 +1533,7 @@ As shown below, power and ground flows from power/ground pads -> power/ground ri
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th3.png"> </p>
 
- #### TritonRoute**
+ #### TritonRoute
  
 - Performs initial detail route.
 
