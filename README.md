@@ -1531,7 +1531,7 @@ As shown below, power and ground flows from power/ground pads -> power/ground ri
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th3.png"> </p>
 
-**TritonRoute**
+ #### TritonRoute**
  
 - Performs initial detail route.
 
@@ -1544,23 +1544,23 @@ As shown below, power and ground flows from power/ground pads -> power/ground ri
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th4.png"> </p>
  
-Preprocessed Route Guide:
+**Preprocessed Route Guide:**
 
-Requirements:
+ Requirements:
 
-Should have Unit Width.
+  - Should have Unit Width.
 
-Should be in the preferred direction.
+  - Should be in the preferred direction.
 
 **Inter-guide connectivity**
 
 Two guides are connected if:
 
-They are on the same metal layer with touching edges, or
+  - They are on the same metal layer with touching edges, or
 
-They are on neighboring metal layers with a nonzero vertically overlapped area.
+  - They are on neighboring metal layers with a nonzero vertically overlapped area.
 
-Each unconnected terminal (i.e., pin of a standard-cell instance should have its pin shape overlapped by a route guide.
+  - Each unconnected terminal (i.e., pin of a standard-cell instance should have its pin shape overlapped by a route guide.
 
 **Intra-Layer Parallel and Inter-Layer Sequential Panel Routing:**
 
@@ -1569,9 +1569,9 @@ Each unconnected terminal (i.e., pin of a standard-cell instance should have its
  
 **Handling Connectivity:**
 
-Access Point (AP): An on-grid point on the metal layer of the route guide, and is used to connect to lower-layer segments, upper-layer segments, pins or IO ports.
+- Access Point (AP): An on-grid point on the metal layer of the route guide, and is used to connect to lower-layer segments, upper-layer segments, pins or IO ports.
 
-Access Point Cluster (APC): A union of all Aps derived from same lower-layer segment, upper-layer guide, a pin or an IO port.
+- Access Point Cluster (APC): A union of all Aps derived from same lower-layer segment, upper-layer guide, a pin or an IO port.
  
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/th6.png"> </p>
