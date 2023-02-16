@@ -59,9 +59,10 @@ This repo contents learning info and steps followed during the workshop of Advan
       - [Analysing the inverter](#analysing-the-inverter)
    - [CMOS Fabrication Process (16-Mask CMOS Process)](#cmos-fabrication-process-16-mask-cmos-process)
    - [Inverter Standard cell Layout & SPICE extraction](#Inverter-standard-cell-layout--spice-extraction)
+   - [LAB DAY 3](#lab-day-3)
       - [Layout of the CMOS Inverter in Magic](#layout-of-the-cmos-inverter-in-magic)
       - [Magic Commands:](#magic-commands-)
-   - [LAB DAY 3](#labb-day-3)
+      - [LEF](#lef
        - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
    - [DRC Rules & Analysis](#drc-rule--analysis)
 * [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
@@ -880,6 +881,8 @@ The side-wall spacers maintains the N-/P- while implanting the N+/P+
 
 ### Inverter Standard cell Layout & SPICE extraction
 
+#### LAB DAY 3
+
 - The Magic layout of a CMOS inverter will be used so as to intergate the inverter with the picorv32a design. To do this, inverter magic file is sourced from `vsdstdcelldesign` by cloning it within the `openlane_working_dir/openlane` directory as follows:
 ```
 git clone https://github.com/nickson-jose/vsdstdcelldesign
@@ -968,8 +971,10 @@ Zooming-In to select unit box i.e. Root cell box and get micron & lambada values
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Lab/LB23.png"> </p>
 
-#### LEF or library exchange format:
-</b> A format that tells us about cell boundaries, VDD and GND lines. It contains no info about the logic of circuit and is also used to protect the IP.
+
+#### LEF:
+
+</b> LEF or library exchange format: A format that tells us about cell boundaries, VDD and GND lines. It contains no info about the logic of circuit and is also used to protect the IP.
 
 SPICE extraction: Within the Magic environment, following commands are used in tkcon to achieve .mag to .spice extraction:
 ``` 
