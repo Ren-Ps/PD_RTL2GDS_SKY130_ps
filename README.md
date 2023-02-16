@@ -24,7 +24,7 @@ This repo contents learning info and steps followed during the workshop of Advan
        - [About OpenLANE](#about-openlane)
     - [Getting familier to open-source EDA tools](#getting-familier-to-open-source-eda-tools)
        - [Contents of the OpenLANE Directory](#contents-of-the-openlane-directory)
-       - [LAB Day 1](#lab-day-1)
+    - [LAB Day 1](#lab-day-1)
        - [TASK 1: Finding the d flip flop ratio](#TASK-1-finding-the-d-flip-flop-ratio)
 * [Day 2 - Good floorplan vs bad floorplan and introduction to library cells](#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells
 )
@@ -46,11 +46,11 @@ This repo contents learning info and steps followed during the workshop of Advan
        - [Library and user Defined Specs](#library-and-user-defined-specs)
        - [Design steps Outputs of Cell Design Flow](#design-steps-outputs-of-cell-design-flow)
     - [Characterization](#characterization)
-      -[Characterization Flow](#characterization-flow)
-      -[Characterization Setup](#characterization-setup)
+      - [Characterization Flow](#characterization-flow)
+      - [Characterization Setup](#characterization-setup)
     - [Timing Characterization](#timing-characterization)
-      -[Propogation Delay](#propogation-delay)
-      -[Transition Time](#transition-time)
+      - [Propogation Delay](#propogation-delay)
+      - [Transition Time](#transition-time)
     - [LAB Day 2](#lab-day-2-)
        - [TASK 2: Calculating Die Area](#task-2-calculating-die-area)
 * [Day 3 - Design library cell using Magic Layout and ngspice characterization](#day-3---design-library-cell-using-magic-layout-and-ngspice-characterization)
@@ -270,7 +270,7 @@ The following content is specific to the workshop. There are lot of other files 
 * config.tcl
 * Default value (already set in OpenLane)
 
-### LAB DAY 1:
+## LAB DAY 1:
 
 
 **Step 1:** Starting OpenLane
@@ -365,9 +365,9 @@ So: **flop ratio = count of d flip flops / number of cells = 1613/14876 = 0.1084
 The synthesis statisttics report can bee seen above image. 
  
  
-## Day 2: Good Floorplan vs Bad Floorplan and Introduction to library cells
----
-### Stages of Floorplanning:
+# Day 2: Good Floorplan vs Bad Floorplan and Introduction to library cells
+ 
+## Stages of Floorplanning:
 
 The placement of logical blocks, library cells, and pins on a silicon chip is known as chip floorplanning. It ensures that every module has been given the proper area and aspect ratio, that every pin of the module is connected to another module or the chip's edge, and that modules are placed so that they take up the least amount of space on a chip.
 
@@ -442,42 +442,42 @@ The placement of logical blocks, library cells, and pins on a silicon chip is kn
 
 We are done with Floor and Power Planning.!
  
-### Placement in OpenLANE
----
+## Placement in OpenLANE
+
 - **Library** consists of shape and size of all the standard cells(the different sizes of same standard cells is known as **drive strength**, lower size standard cell has lower driving strength), various functionality  of the same cells, timing and delay information of all the cells.
 - We also keep decap cells, macros and IPs in Library.
-#### Introduction to Placement 
+### Introduction to Placement 
 - After floorplanning, next comes placement, it determines location of each of the components on the die. The standard cells that are present in the generated netlist are not the only cells that are placed. Placement enhances the design, removing any timing violations brought created  by the relative placement on the die.
 - In placement we bind the netlist to a real-size physical cell. The physical standard cell will be taken from a library that offers various alternatives for the identical cells, shapes, dimensions, and delay.
 - They are place it in the floorplaning(which have properly positioned input and output ports that are well designed) according to our netlist. To minimise timing delay, the flip flops must be positioned as close to the input and output pins as practicable.
 - **The main goal of placement is to make sure Standard Cells are correctly placed in Standard Cells roots**
 
-#### Initial placement of cells in our floorplan
+### Initial placement of cells in our floorplan
 ![Iniplmnt](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th8.png)
 
 - To keep the **signal integrity**(Signal integrity or SI is a set of measures of the quality of an electrical signal. In digital electronics, a stream of binary values is represented by a voltage or current waveform.) we optimise placement, for that we calculate the wirelength and capacitance (C=εA/d) and then add **repeaters** and **buffers** based on those values. The wirelength will cause a capacitance and a resistance that will result in unwanted voltage drops and slew rates(slew is inversly proportional to capacitance) that might not be allowed for logic gates that switch current quickly. Inserting buffers for lengthy lines that serve as intermediaries and divide a single long wire into multiple ones would reduce resistance and capacitance. 
 - If it needs to operate at a high frequency(2GHz), we occasionally also do **abutment**, in which logic cells are put very close to one another (virtually with zero delay). 
 - Route crisscrossing is a common occurrence in PnR because the crisscrossed path can be implemented utilising a different metal layer (vias).
 
-#### Optimised placement of cells in our floorplan after using buffers
+### Optimised placement of cells in our floorplan after using buffers
 ![optimzd](https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th9.png)
 
 - After placement optimization, timing analysis will be set up using an ideal clock, which has no wire delays and no clock buffer-related delays because CTS has not yet been completed.
 
 Placement is now focused on **congestion rather than timing**. Standard cells are also not placed on the floorplan stage; rather, they are placed on the placement stage. The cells that are placed on the floorplan stage are macros or preplaced cells. 
 
-#### Placement is done on two stages:
+### Placement is done on two stages:
 - **Global Placement** is placement without legalisations with the intention of cutting down on wirelength.The main function of Global Placement is to reduce wirelengthand in OpenLANE use the concept of of the HPWL (Half Perimeter Wirelength) reduction concept.
 - **Detailed Placement** is placement with legalisation(legalisation is more required for timing point of view), where the standard cells must be adjacent, in standard rows, and without overlaps.
 
 
-### Cell Design Flow
----
+## Cell Design Flow
 
 In IC design flow a library is a place where we keep all our standard cells, buffers, decap cell, etc. The library does not only have different cells with different functionality but it also have same cell with different sizes, threshold voltage, delays, etc.
 
 - In Cell design we will look at how a standard cell is designed in the library
-#### Inputs to Cell Design Flow
+
+### Inputs to Cell Design Flow
 
 <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th10.png">  </p>
@@ -496,7 +496,7 @@ In IC design flow a library is a place where we keep all our standard cells, buf
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th13.png">  </p>
 
-#### Design steps Outputs of Cell Design Flow
+### Design steps Outputs of Cell Design Flow
 
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th14.png">  </p>
@@ -519,13 +519,13 @@ In IC design flow a library is a place where we keep all our standard cells, buf
 - The output of the layout will be **GDSII(Graphic Design System II) file**, **LEF(Library Exchange Format ) file**(define width and heigt of the cell) and the **extraced spice netlist**(define resistance and capacitance of all the nodes)
 
 
-### Characterization 
----
+## Characterization 
+
 - Next step after we get the extraced step netlist and layout is characterization(*that's what this course is all about*)
 - **Characterization** helps us to get timing, noise and power information.
 - The output of characterization is **timing, noise, power.lib files** and the **functionality** of this circuit
 
-#### Characterization Flow
+### Characterization Flow
 1. Read in the models files
 2. Read the extreaced spice netlist
 3. Recognize the behaviour of the buffer
@@ -534,7 +534,8 @@ In IC design flow a library is a place where we keep all our standard cells, buf
 6. Apply the stimulus
 7. Provide the necessary output capacitances 
 8. Prove the necessary simulation commands
-#### Characterization Setup
+
+### Characterization Setup
 
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th18.png">  </p>
@@ -551,8 +552,8 @@ In IC design flow a library is a place where we keep all our standard cells, buf
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th20.png">  </p>
 
-### Timing Characterization:
----
+## Timing Characterization:
+
 The slew timing parameters are listed below. Two inverters are connected in series, called as buffers(circuit is shown above)
 
 - Timing Threshold Definitions:
@@ -568,7 +569,7 @@ The slew timing parameters are listed below. Two inverters are connected in seri
   - out_rise_thr: Defines the point towards the centre of the rising curve of the output. Typically 50% of Vdd.
   - out_fall_thr: Defines the point towards the centre of the falling curve of the output. Typically 50% of Vdd.
  
- #### Propogation Delay
+ ### Propogation Delay
  
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th22.jpg">  </p>
@@ -581,7 +582,7 @@ The slew timing parameters are listed below. Two inverters are connected in seri
 - Negative delay is not expected and if negative delay is received then it is due to poor choice of threshold points.
 - The designer must select the proper threshold value to create a positive delay. The typical delay threshold is 50%. 
 
- #### Transition Time
+ ### Transition Time
  
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Theory/th21.png">  </p>
@@ -596,8 +597,8 @@ The slew timing parameters are listed below. Two inverters are connected in seri
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day3/Theory/th2.png">  </p>
 
 
-### LAB DAY 2 : Steps to run and view of Floorplan and Placement using OpenLANE
----
+## LAB DAY 2 : Steps to run and view of Floorplan and Placement using OpenLANE
+
 1. **Set configuration variables** 
 - The configuration variables or switches must be set up before to starting the floorplan stage.. 
 - The configuration variables location is 
@@ -617,7 +618,7 @@ The slew timing parameters are listed below. Two inverters are connected in seri
 
 The default OpenLANE settings are contained in the `.tcl` files, and the `README.md` defines every configuration variable for every stage. 
     
-#### `README.md` file contains,
+##### `README.md` file contains,
 
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB1.png">  </p>   
@@ -627,7 +628,7 @@ Here we find every configuration that the current run has approved. This could o
 - `config.tcl` inside the `openlane/designs/picorv32a` folder
 - System default settings inside `openlane/configurations`
 
-#### `floorplan.tcl` file contains,
+##### `floorplan.tcl` file contains,
 
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day2/Lab/LB2.png">  </p>   
