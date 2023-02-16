@@ -76,6 +76,7 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [Maze Routing]
    - [DRC Cleaning]
    - [Power Distribution Network]
+   - [LAB DAY 5](#lab-day-5)
 * [References](#referances)
        
        
