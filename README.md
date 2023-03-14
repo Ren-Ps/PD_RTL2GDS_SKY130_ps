@@ -1,6 +1,6 @@
 # Advance Physical Design RTL-to-GDSII using SKY130 technology and OpenLANE for EDA
 
-# PD_RTL2GDS_SKY130_ps
+## PD_RTL2GDS_SKY130_ps
 This repo contents learning info and steps followed during the workshop of Advanced Physical Design Using OpenLANE/SKY130. It focuses on the complete ASIC flow approach from RTL2GDS using opensource EDA tools and the PICORV32A which is RISC-V architecture is followed for designing the core.
 
 # Contents
@@ -8,7 +8,7 @@ This repo contents learning info and steps followed during the workshop of Advan
   * [SKYWater130 PDK](#skywater130-pdk)
   * [OpenLANE](#openlane)
   * [Tools Used](#tools-used)
-  * [Day 1 - Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1---inception-of-open-source-eda-openlane-and-sky130-pdk)
+  * [1 - Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1---inception-of-open-source-eda-openlane-and-sky130-pdk)
     - [How to talk to computers](#how-to-talk-to-computers)
       - [IC Terminologies](#ic-terminologies)
       - [Introduction to RISC-V](#introduction-to-risc-v)
@@ -21,7 +21,7 @@ This repo contents learning info and steps followed during the workshop of Advan
        - [Contents of the OpenLANE Directory](#contents-of-the-openlane-directory)
     - [in Day 1]
        - [TASK 1: Finding the d flip flop ratio](#TASK-1-finding-the-d-flip-flop-ratio)
-* [Day 2 - Good floorplan vs bad floorplan and introduction to library cells](#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells
+* [2 - Good floorplan vs bad floorplan and introduction to library cells](#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells
 )
     - [Stages of Floorplanning:](#stages-of-floorplanning)
        - [The height and width of core and die](#the-height-and-width-of-core-and-die)
@@ -49,7 +49,7 @@ This repo contents learning info and steps followed during the workshop of Advan
     - [ Steps to run and view of Floorplan and Placement using OpenLANE](#steps-to-run-and-view-of-floorplan-and-placement-using-openlane)
     - [in Day 2]
        - [TASK 2: Calculating Die Area](#task-2-calculating-die-area)
-* [Day 3 - Design library cell using Magic Layout and ngspice characterization](#day-3---design-library-cell-using-magic-layout-and-ngspice-characterization)
+* [3 - Design library cell using Magic Layout and ngspice characterization](#day-3---design-library-cell-using-magic-layout-and-ngspice-characterization)
    - [Labs for CMOS inverter ngspice simulations](#labs-for-cmos-inverter-ngspice-simulations)
       - [Creating SPICE deck for CMOS Inverter](#creating-spice-deck-for-cmos-inverter)
       - [Analysing the inverter](#analysing-the-inverter)
@@ -61,14 +61,14 @@ This repo contents learning info and steps followed during the workshop of Advan
       - [in Day 3]
         - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
       - [DRC Rules & Analysis](#drc-rule--analysis)
-* [DAY 4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
+* [4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
    - [Extracting the LEF File](#extracting-the-lef-file)
    - [Delay Table](#delay_table)
    - [(Fix Negative Slack)](#fix-negative-slack)
    - [Timing Analysis (Pre-Layout STA using Ideal Clocks)](#timing-analysis-pre-layout-sta-using-ideal-clocks)
    - [Pre-Layout STA with OpenSTA](#pre-layout-sta-with-opensta)
    - [Clock Tree Synthesis](#clock-tree-synthesis)
-* [DAY 5 - DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonRoute-and-openSTA)
+* [5: Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonRoute-and-openSTA)
    - [Maze Routing](#maze-routing)
    - [DRC Cleaning](#drc-cleaning)
    - [Power Distribution Network](#power-distribution-network)
@@ -1608,11 +1608,27 @@ Finally ```run_routing```
  
  Similar to what we did when we plugged in the custom inverter cell, look for sky130_myinverter at the DEF file then search that cell instance in magic.
  
+ Now, Check in ```/openLANE_flow/designs/picorv32a/runs/30-01_04-42/results/signOff/[desing file name with gdsii extention]``` folder for the final generated GDSII file.
+ Open it using Magic VLSI (as mentioned earlier) or Using [KLayout](https://www.klayout.de/build.html) (swuggested - in tools > add technology sky130).
+ 
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/LB1.png"> </p>
+
+ And so ,as if wish to see the GDSII in 3D, in Klayout there's additional package as gds3xtrude which translates GDSII into STL using Layout script, which runs as python package.
+ 
+ Using OpenSCAD it is opened.
+ 
+ <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/LB2.png"> </p>
+  <p align="center">
+ <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/L3.png"> </p>
+ 
  Done!
 
 # REFERENCES
 
+[OpenLANE-Sky130-Physical-Design-Workshop](https://github.com/AngeloJacobo/OpenLANE-Sky130-Physical-Design-Workshop#floorplan-stage)
 [Kunal Ghosh - Co-founder of VSD](https://www.udemy.com/user/anagha/)
 [Nickson Jose - Workshop Instructor](https://www.udemy.com/user/nickson-jose/)
-[OpenLANE-Sky130-Physical-Design-Workshop](https://github.com/AngeloJacobo/OpenLANE-Sky130-Physical-Design-Workshop#floorplan-stage)
+
 
