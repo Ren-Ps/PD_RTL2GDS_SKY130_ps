@@ -61,20 +61,21 @@ This repo contents learning info and steps followed during the workshop of Advan
       - [in Day 3]
         - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
       - [DRC Rules & Analysis](#drc-rule--analysis)
-* [4 Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
+* [4 - Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
    - [Extracting the LEF File](#extracting-the-lef-file)
    - [Delay Table](#delay_table)
    - [(Fix Negative Slack)](#fix-negative-slack)
    - [Timing Analysis (Pre-Layout STA using Ideal Clocks)](#timing-analysis-pre-layout-sta-using-ideal-clocks)
    - [Pre-Layout STA with OpenSTA](#pre-layout-sta-with-opensta)
    - [Clock Tree Synthesis](#clock-tree-synthesis)
-* [5: Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonRoute-and-openSTA)
+* [5 - Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonRoute-and-openSTA)
    - [Maze Routing](#maze-routing)
    - [DRC Cleaning](#drc-cleaning)
    - [Power Distribution Network](#power-distribution-network)
    - [Routing Stage](#routing-stage)
      - [TritonRoute](#tritonroute)
-* [References](#referances)
+     - [GDSII](#gdsii)
+* [References](#references)
        
        
 # About RTL to GDSII Flow
@@ -1607,7 +1608,8 @@ Finally ```run_routing```
  A DEF file will be formed runs/[date]/results/routing/picorv32.def Open the DEF file output of routing stage in Magic.
  
  Similar to what we did when we plugged in the custom inverter cell, look for sky130_myinverter at the DEF file then search that cell instance in magic.
- 
+
+### GDSII
  Now, Check in ```/openLANE_flow/designs/picorv32a/runs/30-01_04-42/results/signOff/[desing file name with gdsii extention]``` folder for the final generated GDSII file.
  Open it using Magic VLSI (as mentioned earlier) or Using [KLayout](https://www.klayout.de/build.html) (swuggested - in tools > add technology sky130).
  
@@ -1620,12 +1622,13 @@ Finally ```run_routing```
  
  <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/LB2.png"> </p>
+ 
   <p align="center">
  <img src="https://github.com/Ren-Ps/PD_RTL2GDS_SKY130_ps/blob/main/Day5/Theory/L3.png"> </p>
  
  Done!
 
-# REFERENCES
+# References
 
 [OpenLANE-Sky130-Physical-Design-Workshop](https://github.com/AngeloJacobo/OpenLANE-Sky130-Physical-Design-Workshop#floorplan-stage)
 [Kunal Ghosh - Co-founder of VSD](https://www.udemy.com/user/anagha/)
