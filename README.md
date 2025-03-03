@@ -19,7 +19,6 @@ This repo contents learning info and steps followed during the workshop of Advan
        - [About OpenLANE](#about-openlane)
     - [Getting familier to open-source EDA tools](#getting-familier-to-open-source-eda-tools)
        - [Contents of the OpenLANE Directory](#contents-of-the-openlane-directory)
-    - [in Day 1]
        - [TASK 1: Finding the d flip flop ratio](#TASK-1-finding-the-d-flip-flop-ratio)
 * [2 - Good floorplan vs bad floorplan and introduction to library cells](#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells
 )
@@ -47,7 +46,6 @@ This repo contents learning info and steps followed during the workshop of Advan
       - [Propogation Delay](#propogation-delay)
       - [Transition Time](#transition-time)
     - [ Steps to run and view of Floorplan and Placement using OpenLANE](#steps-to-run-and-view-of-floorplan-and-placement-using-openlane)
-    - [in Day 2]
        - [TASK 2: Calculating Die Area](#task-2-calculating-die-area)
 * [3 - Design library cell using Magic Layout and ngspice characterization](#day-3---design-library-cell-using-magic-layout-and-ngspice-characterization)
    - [Labs for CMOS inverter ngspice simulations](#labs-for-cmos-inverter-ngspice-simulations)
@@ -58,7 +56,6 @@ This repo contents learning info and steps followed during the workshop of Advan
    - [Layout of the CMOS Inverter in Magic](#layout-of-the-cmos-inverter-in-magic)
       - [Magic Commands:](#magic-commands-)
       - [LEF](#lef)
-      - [in Day 3]
         - [TASK 3: Calculating Transition & Propogation Delays](#task-3-calculating-transition--propogation-delays)
       - [DRC Rules & Analysis](#drc-rule--analysis)
 * [4 - Pre-layout Timing Analysis & Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
